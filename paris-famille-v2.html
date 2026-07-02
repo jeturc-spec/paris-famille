@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>🗼 Paris en Famille — Notre Aventure</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bleu:#2563EB;--bleu-clair:#DBEAFE;--rouge:#DC2626;--rouge-clair:#FEE2E2;
+  --jaune:#F59E0B;--jaune-clair:#FEF3C7;--vert:#16A34A;--vert-clair:#DCFCE7;
+  --violet:#7C3AED;--violet-clair:#EDE9FE;--orange:#EA580C;--orange-clair:#FFEDD5;
+  --rose:#DB2777;--rose-clair:#FCE7F3;--lion:#D97706;--lion-clair:#FEF3C7;
+  --gris-bg:#F8F7F4;--blanc:#FFFFFF;--texte:#1E293B;--texte-doux:#64748B;
+  --radius:16px;--radius-sm:10px;--shadow:0 4px 20px rgba(0,0,0,.10);
+  --shadow-lg:0 8px 40px rgba(0,0,0,.15);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--gris-bg);color:var(--texte);min-height:100vh;overflow-x:hidden}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#1E40AF 0%,#2563EB 50%,#7C3AED 100%);color:white;text-align:center;padding:28px 20px 16px;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-40px;left:-40px;width:180px;height:180px;background:rgba(255,255,255,.07);border-radius:50%}
+.header::after{content:'';position:absolute;bottom:-60px;right:-30px;width:220px;height:220px;background:rgba(255,255,255,.05);border-radius:50%}
+.header-emoji{font-size:2.8rem;display:block;margin-bottom:4px}
+.header h1{font-family:'Baloo 2',cursive;font-size:1.8rem;font-weight:800;margin-bottom:2px;position:relative;z-index:1}
+.header p{font-size:.9rem;opacity:.85;position:relative;z-index:1}
+.header-dates{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:.82rem;margin-top:8px;position:relative;z-index:1}
+.header-playlist{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:6px 14px;font-size:.8rem;font-weight:700;color:white;text-decoration:none;margin-top:8px;position:relative;z-index:1}
+
+/* NAV */
+.nav-main{display:flex;background:white;box-shadow:0 2px 12px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
+.nav-main button{flex:1;padding:12px 4px;border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:700;color:var(--texte-doux);cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:2px;border-bottom:3px solid transparent}
+.nav-main button .nav-icon{font-size:1.2rem}
+.nav-main button.active{color:var(--bleu);border-bottom-color:var(--bleu);background:var(--bleu-clair)}
+
+/* SECTIONS */
+.section{display:none;padding:14px}
+.section.active{display:block}
+
+/* CARNET */
+.carnet-bar{background:linear-gradient(135deg,#F59E0B,#D97706);color:white;border-radius:var(--radius);padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow)}
+.carnet-bar h3{font-family:'Baloo 2',cursive;font-size:.95rem;font-weight:700}
+.etoiles{font-size:1.3rem;letter-spacing:2px}
+.progress-bar{background:rgba(255,255,255,.3);border-radius:10px;height:8px;margin-top:5px;overflow:hidden;width:160px}
+.progress-fill{background:white;height:100%;border-radius:10px;transition:width .5s ease}
+
+/* JOURS */
+.jour-card{background:white;border-radius:var(--radius);margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden}
+.jour-header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.jour-header h2{font-family:'Baloo 2',cursive;font-size:1.1rem;font-weight:800}
+.jour-badge{background:var(--bleu);color:white;border-radius:20px;padding:3px 10px;font-size:.72rem;font-weight:700}
+.jour-body{display:none}
+.jour-map-btn{display:flex;align-items:center;gap:8px;background:var(--bleu-clair);color:var(--bleu);border:none;border-radius:var(--radius-sm);padding:8px 14px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;margin:0 14px 10px;text-decoration:none;width:calc(100% - 28px)}
+.jour-pause-verte{display:flex;align-items:center;gap:8px;background:var(--vert-clair);color:var(--vert);border:none;border-radius:var(--radius-sm);padding:8px 14px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;margin:0 14px 12px;text-decoration:none;width:calc(100% - 28px)}
+
+/* MONUMENT CARD */
+.monument-card{border:2px solid #F1F5F9;border-radius:var(--radius);margin:0 10px 10px;overflow:hidden;background:white}
+.monument-header{padding:11px 12px;cursor:pointer;display:flex;align-items:center;gap:10px}
+.monument-emoji{font-size:1.9rem;flex-shrink:0}
+.monument-info{flex:1;min-width:0}
+.monument-info h3{font-family:'Baloo 2',cursive;font-size:.95rem;font-weight:800;margin-bottom:2px}
+.monument-info p{font-size:.75rem;color:var(--texte-doux)}
+.monument-badges{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
+.badge{border-radius:20px;padding:2px 8px;font-size:.68rem;font-weight:700}
+.badge-lion{background:var(--lion-clair);color:var(--lion)}
+.badge-temps{background:var(--bleu-clair);color:var(--bleu)}
+.badge-gratuit{background:var(--vert-clair);color:var(--vert)}
+.badge-resa{background:var(--rouge-clair);color:var(--rouge)}
+.monument-check{width:26px;height:26px;border-radius:50%;border:2px solid #E2E8F0;background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;transition:all .2s}
+.monument-check.done{background:var(--vert);border-color:var(--vert);color:white}
+.chevron{font-size:.75rem;color:var(--texte-doux);transition:transform .3s;flex-shrink:0}
+.chevron.open{transform:rotate(180deg)}
+
+/* MONUMENT DETAIL */
+.monument-detail{display:none;border-top:2px solid #F1F5F9}
+.monument-detail.open{display:block}
+.detail-photo{width:100%;height:190px;object-fit:cover;display:block}
+.detail-tabs{display:flex;overflow-x:auto;scrollbar-width:none;border-bottom:2px solid #F1F5F9;background:#FAFAFA}
+.detail-tabs::-webkit-scrollbar{display:none}
+.detail-tab{flex-shrink:0;padding:9px 12px;border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:700;color:var(--texte-doux);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;display:flex;align-items:center;gap:3px}
+.detail-tab.active{color:var(--bleu);border-bottom-color:var(--bleu)}
+.detail-content{display:none;padding:13px}
+.detail-content.active{display:block}
+
+/* INFOS */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}
+.info-item{background:var(--gris-bg);border-radius:var(--radius-sm);padding:9px 11px}
+.info-label{font-size:.68rem;color:var(--texte-doux);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.info-value{font-size:.82rem;font-weight:700;color:var(--texte)}
+.info-full{grid-column:1/-1}
+.btn-reserver{display:block;background:var(--bleu);color:white;text-align:center;padding:11px;border-radius:var(--radius-sm);text-decoration:none;font-weight:800;font-size:.88rem;margin-top:6px}
+
+/* ANECDOTES */
+.anecdote-btn{width:100%;background:var(--jaune-clair);border:2px solid var(--jaune);border-radius:var(--radius-sm);padding:11px 13px;text-align:left;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.83rem;font-weight:700;color:#92400E;margin-bottom:7px;display:flex;align-items:center;gap:8px;transition:all .2s}
+.anecdote-btn:hover{background:#FDE68A}
+.anecdote-text{display:none;background:white;border:2px solid var(--jaune);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm);padding:11px 13px;font-size:.83rem;line-height:1.6;margin-top:-9px;margin-bottom:7px;color:var(--texte)}
+.anecdote-text.open{display:block}
+
+/* PERSONNAGES */
+.personnage-card{background:var(--violet-clair);border-radius:var(--radius);padding:13px;margin-bottom:10px;display:flex;gap:11px;align-items:flex-start}
+.personnage-photo{width:66px;height:66px;border-radius:50%;object-fit:cover;flex-shrink:0;border:3px solid white}
+.personnage-info h4{font-family:'Baloo 2',cursive;font-size:.9rem;font-weight:800;color:var(--violet);margin-bottom:2px}
+.personnage-dates{font-size:.7rem;color:var(--texte-doux);margin-bottom:5px}
+.personnage-bio{font-size:.78rem;line-height:1.5;color:var(--texte)}
+.personnage-lien{display:inline-flex;align-items:center;gap:4px;background:var(--violet);color:white;border-radius:20px;padding:3px 9px;font-size:.7rem;font-weight:700;text-decoration:none;margin-top:6px}
+.lion-badge{display:inline-flex;align-items:center;gap:4px;background:var(--lion);color:white;border-radius:20px;padding:3px 9px;font-size:.7rem;font-weight:700;margin-top:5px;margin-left:5px}
+
+/* VIDEOS */
+.videos-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.video-thumb{border-radius:var(--radius-sm);overflow:hidden;text-decoration:none;display:block;box-shadow:var(--shadow)}
+.video-thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.video-title{padding:5px 8px;font-size:.7rem;font-weight:700;color:var(--texte);background:white;display:flex;align-items:center;gap:4px}
+
+/* QUIZ */
+.quiz-question{background:var(--bleu-clair);border-radius:var(--radius);padding:13px;margin-bottom:11px}
+.quiz-question p{font-weight:700;font-size:.88rem;margin-bottom:9px;color:var(--bleu)}
+.quiz-option{width:100%;background:white;border:2px solid #BFDBFE;border-radius:var(--radius-sm);padding:9px 11px;text-align:left;font-family:'Nunito',sans-serif;font-size:.81rem;font-weight:600;cursor:pointer;margin-bottom:5px;transition:all .2s}
+.quiz-option:hover{background:var(--bleu-clair)}
+.quiz-option.correct{background:var(--vert-clair);border-color:var(--vert);color:var(--vert)}
+.quiz-option.wrong{background:var(--rouge-clair);border-color:var(--rouge);color:var(--rouge)}
+.quiz-feedback{display:none;font-size:.8rem;font-weight:700;padding:5px 0}
+
+/* TROUVER */
+.trouver-list{list-style:none}
+.trouver-item{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-bottom:1px solid #F1F5F9}
+.trouver-check{width:23px;height:23px;border:2px solid #CBD5E1;border-radius:6px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .2s;margin-top:1px}
+.trouver-check.done{background:var(--vert);border-color:var(--vert);color:white}
+.trouver-text{font-size:.83rem;line-height:1.4}
+
+/* SECTION TITLES */
+.section-title{font-family:'Baloo 2',cursive;font-size:1.25rem;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.section-subtitle{font-size:.81rem;color:var(--texte-doux);margin-bottom:14px}
+
+/* FILTRES */
+.filtres{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin-bottom:14px;padding-bottom:3px}
+.filtres::-webkit-scrollbar{display:none}
+.filtre-btn{flex-shrink:0;padding:6px 13px;border-radius:20px;border:2px solid #E2E8F0;background:white;font-family:'Nunito',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;transition:all .2s;color:var(--texte-doux)}
+.filtre-btn.active{background:var(--orange);border-color:var(--orange);color:white}
+
+/* PEPITES */
+.pepite-card{background:white;border-radius:var(--radius);margin-bottom:13px;box-shadow:var(--shadow);overflow:hidden;display:flex}
+.pepite-color-bar{width:6px;flex-shrink:0}
+.pepite-content{padding:11px 13px;flex:1;min-width:0}
+.pepite-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:5px}
+.pepite-header h3{font-family:'Baloo 2',cursive;font-size:.92rem;font-weight:800}
+.pepite-quartier{background:var(--orange-clair);color:var(--orange);border-radius:20px;padding:2px 8px;font-size:.66rem;font-weight:700;flex-shrink:0}
+.pepite-desc{font-size:.8rem;line-height:1.5;color:var(--texte);margin-bottom:7px}
+.pepite-actions{display:flex;gap:7px;flex-wrap:wrap}
+.pepite-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:20px;font-size:.7rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;font-family:'Nunito',sans-serif}
+.pepite-btn-maps{background:var(--bleu-clair);color:var(--bleu)}
+.pepite-btn-perso{background:var(--violet-clair);color:var(--violet)}
+.pepite-img{width:100%;height:130px;object-fit:cover;display:block}
+
+/* PARCS */
+.parc-card{background:white;border-radius:var(--radius);margin-bottom:13px;box-shadow:var(--shadow);overflow:hidden;border-left:5px solid var(--vert)}
+.parc-header{padding:13px 15px;display:flex;align-items:center;gap:11px;cursor:pointer}
+.parc-emoji{font-size:1.7rem}
+.parc-info h3{font-family:'Baloo 2',cursive;font-size:.92rem;font-weight:800;color:var(--vert)}
+.parc-info p{font-size:.75rem;color:var(--texte-doux);margin-top:2px}
+.parc-body{display:none;padding:0 15px 13px}
+.parc-body.open{display:block}
+.parc-activites{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.parc-act-badge{background:var(--vert-clair);color:var(--vert);border-radius:20px;padding:3px 10px;font-size:.72rem;font-weight:700}
+.parc-anecdote{background:var(--jaune-clair);border-radius:var(--radius-sm);padding:10px 12px;font-size:.8rem;line-height:1.5;color:#92400E;margin-bottom:9px}
+.parc-jour{background:var(--bleu-clair);border-radius:var(--radius-sm);padding:7px 11px;font-size:.78rem;font-weight:700;color:var(--bleu);margin-bottom:9px}
+.parc-map-btn{display:inline-flex;align-items:center;gap:6px;background:var(--vert);color:white;border-radius:var(--radius-sm);padding:8px 14px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;text-decoration:none}
+
+/* LOIRE */
+.loire-banner{background:linear-gradient(135deg,#D97706,#F59E0B);color:white;border-radius:var(--radius);padding:18px;margin-bottom:14px;text-align:center;box-shadow:var(--shadow)}
+.loire-banner .lion-big{font-size:2.8rem;display:block;margin-bottom:6px}
+.loire-banner h2{font-family:'Baloo 2',cursive;font-size:1.25rem;font-weight:800;margin-bottom:5px}
+.loire-banner p{font-size:.83rem;opacity:.9}
+.loire-card{background:white;border-radius:var(--radius);margin-bottom:13px;box-shadow:var(--shadow);overflow:hidden;border-left:5px solid var(--lion)}
+.loire-card-header{padding:13px 15px;display:flex;align-items:center;gap:11px}
+.loire-card-emoji{font-size:1.7rem}
+.loire-card-info h3{font-family:'Baloo 2',cursive;font-size:.92rem;font-weight:800;color:var(--lion)}
+.loire-card-info p{font-size:.75rem;color:var(--texte-doux);margin-top:2px}
+.loire-card-body{padding:0 15px 13px;font-size:.81rem;line-height:1.6;color:var(--texte)}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;align-items:flex-end;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:white;border-radius:var(--radius) var(--radius) 0 0;padding:18px;width:100%;max-height:85vh;overflow-y:auto;animation:slideUp .3s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-close{float:right;background:#F1F5F9;border:none;border-radius:50%;width:30px;height:30px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* MONUMENTS LIST TAB */
+.monuments-list .monument-card{margin:0 0 11px 0}
+
+@media(min-width:600px){
+  .info-grid{grid-template-columns:repeat(3,1fr)}
+  .videos-grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <span class="header-emoji">🗼</span>
+  <h1>Paris en Famille !</h1>
+  <p>Notre grand voyage à Paris</p>
+  <div class="header-dates">📅 Lundi → Vendredi • 5 jours de découvertes</div><br>
+  <a class="header-playlist" href="https://music.youtube.com/playlist?list=PLVOliid2DUifMEYhPYTvxuP7yqebNrdBW&si=r_MmI2sPkEiRSEFz" target="_blank">🎵 Notre playlist Paris</a>
+</div>
+
+<!-- CARNET -->
+<div style="padding:13px 14px 0">
+  <div class="carnet-bar">
+    <div>
+      <h3>🎒 Notre carnet de voyage</h3>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <div style="font-size:.72rem;margin-top:4px;opacity:.9"><span id="nb-visites">0</span> monument(s) visité(s)</div>
+    </div>
+    <div style="text-align:center">
+      <div class="etoiles" id="etoiles-display">⭐⭐⭐⭐⭐</div>
+      <div style="font-size:.7rem;margin-top:4px;opacity:.85">à gagner !</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-main">
+  <button class="active" onclick="showSection('jours')"><span class="nav-icon">📅</span>Par Jour</button>
+  <button onclick="showSection('monuments')"><span class="nav-icon">🏛️</span>Monuments</button>
+  <button onclick="showSection('pepites')"><span class="nav-icon">💎</span>Pépites</button>
+  <button onclick="showSection('parcs')"><span class="nav-icon">🌳</span>Parcs</button>
+  <button onclick="showSection('loire')"><span class="nav-icon">🦁</span>Loire</button>
+</nav>
+
+
+<!-- ===== SECTION : PAR JOUR ===== -->
+<div id="section-jours" class="section active">
+
+<!-- ======== LUNDI ======== -->
+<div class="jour-card">
+  <div class="jour-header" onclick="toggleJour('lundi')">
+    <div>
+      <h2>🗼 Lundi</h2>
+      <div style="font-size:.75rem;color:var(--texte-doux);margin-top:2px">Tour Eiffel · Invalides · Pont Alexandre III · Arc de Triomphe · Champs-Élysées</div>
+    </div>
+    <span class="jour-badge" style="background:var(--rouge)">Jour 1</span>
+  </div>
+  <div class="jour-body" id="jour-lundi">
+    <a class="jour-map-btn" href="https://www.google.com/maps/dir/Boulogne-Billancourt/Tour+Eiffel/Les+Invalides/Pont+Alexandre+III/Arc+de+Triomphe" target="_blank">🗺️ Itinéraire du jour sur Maps</a>
+    <a class="jour-pause-verte" href="#" onclick="showSection('parcs');return false">🌳 Pause verte : Champ-de-Mars (jeux, pique-nique, vue Eiffel)</a>
+
+    <!-- TOUR EIFFEL -->
+    <div class="monument-card" id="card-eiffel">
+      <div class="monument-header" onclick="toggleMonument('eiffel')">
+        <div class="monument-emoji">🗼</div>
+        <div class="monument-info">
+          <h3>Tour Eiffel</h3>
+          <p>⏰ Ouvre à 9h • ⏱️ 2h conseillées • 15 min à pied !</p>
+          <div class="monument-badges"><span class="badge badge-temps">2h</span><span class="badge badge-resa">Réservation obligatoire</span></div>
+        </div>
+        <div class="monument-check" id="check-eiffel" onclick="toggleCheck(event,'eiffel')">✓</div>
+        <span class="chevron" id="chevron-eiffel">▼</span>
+      </div>
+      <div class="monument-detail" id="detail-eiffel">
+        <img class="detail-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg/1280px-Tour_Eiffel_Wikimedia_Commons.jpg" alt="Tour Eiffel" onerror="this.style.display='none'">
+        <div class="detail-tabs">
+          <button class="detail-tab active" onclick="showTab('eiffel','infos',this)">ℹ️ Infos</button>
+          <button class="detail-tab" onclick="showTab('eiffel','anecdotes',this)">🔍 Anecdotes</button>
+          <button class="detail-tab" onclick="showTab('eiffel','personnages',this)">👑 Personnages</button>
+          <button class="detail-tab" onclick="showTab('eiffel','videos',this)">🎬 Vidéos</button>
+          <button class="detail-tab" onclick="showTab('eiffel','quiz',this)">🧠 Quiz</button>
+          <button class="detail-tab" onclick="showTab('eiffel','trouver',this)">🔎 À trouver</button>
+        </div>
+        <div class="detail-content active" id="tab-eiffel-infos">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">⏰ Horaires</div><div class="info-value">9h – 23h45 (tlj)</div></div>
+            <div class="info-item"><div class="info-label">💶 Adulte (2e étage)</div><div class="info-value">19,40 €</div></div>
+            <div class="info-item"><div class="info-label">👧 4–11 ans</div><div class="info-value">4,80 €</div></div>
+            <div class="info-item"><div class="info-label">⏱️ Durée conseillée</div><div class="info-value">2h</div></div>
+            <div class="info-item info-full"><div class="info-label">💡 Conseil pratique</div><div class="info-value" style="font-weight:600">Réservez impérativement sur toureiffel.paris. Montez au 2e étage — idéal avec les enfants. Restez jusqu'à la nuit : à chaque heure pleine, 20 000 ampoules scintillent 5 minutes !</div></div>
+          </div>
+          <a class="btn-reserver" href="https://www.toureiffel.paris/fr/billetterie" target="_blank">🎟️ Réserver en ligne</a>
+        </div>
+        <div class="detail-content" id="tab-eiffel-anecdotes">
+          <div onclick="toggleAnecdote('ef-a1')"><button class="anecdote-btn">🔍 Elle devait être démolie en 1909...</button><div class="anecdote-text" id="ef-a1">La Tour Eiffel était prévue comme installation temporaire pour l'Exposition Universelle de 1889 — elle devait être démolie 20 ans plus tard. Ce qui l'a sauvée ? Son antenne au sommet, qui permettait d'émettre des signaux radio militaires. La technique a sauvé le chef-d'œuvre de la ferraille.</div></div>
+          <div onclick="toggleAnecdote('ef-a2')"><button class="anecdote-btn">🔍 Maupassant la détestait...</button><div class="anecdote-text" id="ef-a2">Guy de Maupassant déjeunait régulièrement au restaurant du 1er étage — non par amour de la tour, mais parce que c'était le seul endroit de Paris d'où on ne la voyait pas ! Il avait signé une pétition contre sa construction, la traitant d'"odieuse colonne de tôle boulonnée".</div></div>
+          <div onclick="toggleAnecdote('ef-a3')"><button class="anecdote-btn">🔍 300 rivets par jour pendant 2 ans...</button><div class="anecdote-text" id="ef-a3">La tour a été construite en seulement 2 ans, 2 mois et 5 jours (1887-1889). 300 ouvriers ont posé 2,5 millions de rivets à la main — et pas un seul accident mortel sur le chantier, exploit rare à l'époque. Gustave Eiffel était obsédé par la sécurité.</div></div>
+          <div onclick="toggleAnecdote('ef-a4')"><button class="anecdote-btn">🔍 Elle grandit et rétrécit selon la température...</button><div class="anecdote-text" id="ef-a4">La Tour Eiffel mesure 330 mètres, mais cette hauteur varie ! Par temps chaud, le métal se dilate et la tour "grandit" de 15 cm. Par grand froid, elle "rétrécit". Elle se penche aussi légèrement côté ombre quand le soleil frappe un seul flanc — jusqu'à 18 cm !</div></div>
+          <div onclick="toggleAnecdote('ef-a5')"><button class="anecdote-btn">🔍 Un escroc a vendu la tour deux fois...</button><div class="anecdote-text" id="ef-a5">En 1925, Victor Lustig a convoqué six marchands de ferraille, leur a montré de faux documents officiels, et leur a vendu la Tour Eiffel pour la démolir. L'acheteur, embarrassé d'avoir été dupé, n'a pas porté plainte. Lustig a recommencé le mois suivant avec un nouveau pigeon. La tour, elle, est toujours là.</div></div>
+          <div onclick="toggleAnecdote('ef-a6')"><button class="anecdote-btn">🔍 Elle a arrêté une armée allemande...</button><div class="anecdote-text" id="ef-a6">En septembre 1914, les Allemands approchaient de Paris. L'émetteur radio au sommet de la Tour Eiffel a intercepté des communications allemandes révélant un flanc exposé de l'armée. Cette information a permis la Bataille de la Marne — et la contre-attaque victorieuse française. La Tour a peut-être sauvé Paris.</div></div>
+          <div onclick="toggleAnecdote('ef-a7')"><button class="anecdote-btn">🔍 Hitler a voulu la faire raser...</button><div class="anecdote-text" id="ef-a7">En 1940, lors de l'entrée des Allemands à Paris, Hitler a ordonné que les câbles des ascenseurs soient coupés — les Français les ont sabotés eux-mêmes pour que les nazis soient obligés de monter à pied. Hitler a finalement renoncé à raser la tour, mais n'y est jamais monté.</div></div>
+          <div onclick="toggleAnecdote('ef-a8')"><button class="anecdote-btn">🔍 Elle est repeinte toutes les 7 ans...</button><div class="anecdote-text" id="ef-a8">La Tour Eiffel est repeinte entièrement tous les 7 ans — opération qui nécessite 60 tonnes de peinture. Elle a changé de couleur plusieurs fois : rouge brique à l'origine, puis jaune-brun, puis ocre, puis la couleur "brun Tour Eiffel" actuelle, légèrement plus claire en haut pour tromper l'œil.</div></div>
+          <div onclick="toggleAnecdote('ef-a9')"><button class="anecdote-btn">🔍 Gustave Eiffel avait son appartement secret...</button><div class="anecdote-text" id="ef-a9">Au 3e étage, Gustave Eiffel s'était aménagé un appartement privé avec salon, cuisine et chambre. Beaucoup d'hommes riches lui offraient des fortunes pour le louer. Il refusait toujours — il recevait là Thomas Edison en 1889 et d'autres grands esprits de son époque. L'appartement est aujourd'hui reconstitué avec des mannequins.</div></div>
+          <div onclick="toggleAnecdote('ef-a10')"><button class="anecdote-btn">🔍 Les scintillements sont protégés par copyright...</button><div class="anecdote-text" id="ef-a10">La tour elle-même est dans le domaine public et peut être photographiée librement. Mais les illuminations nocturnes ont été créées en 1985 et sont protégées par le droit d'auteur ! Publier une photo des scintillements en vue de la commercialiser nécessite techniquement une autorisation. Une curiosité juridique unique au monde.</div></div>
+        </div>
+        <div class="detail-content" id="tab-eiffel-personnages">
+          <div class="personnage-card">
+            <img class="personnage-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Gustave_Eiffel.jpg/800px-Gustave_Eiffel.jpg" alt="Gustave Eiffel" onerror="this.style.display='none'">
+            <div class="personnage-info">
+              <h4>Gustave Eiffel</h4>
+              <div class="personnage-dates">1832 – 1923 · Ingénieur, constructeur</div>
+              <div class="personnage-bio">Né à Dijon, mort à Paris, Eiffel était surtout connu pour ses ponts métalliques avant la tour qui porte son nom. Il a aussi conçu la charpente intérieure de la Statue de la Liberté à New York ! Après la tour, il se consacra à l'aérodynamique — son laboratoire de recherche sous la tour fut l'un des premiers au monde. Un génie discret qui a changé le visage de deux continents.</div>
+              <a class="personnage-lien" href="https://fr.wikipedia.org/wiki/Gustave_Eiffel" target="_blank">📖 Wikipedia</a>
+            </div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-eiffel-videos">
+          <div class="videos-grid">
+            <a class="video-thumb" href="https://www.youtube.com/results?search_query=tour+eiffel+histoire+construction+documentaire" target="_blank"><img src="https://img.youtube.com/vi/UK9BRBvKU8s/mqdefault.jpg" alt="Vidéo Tour Eiffel"><div class="video-title">▶️ Histoire & construction</div></a>
+            <a class="video-thumb" href="https://www.youtube.com/results?search_query=tour+eiffel+scintillements+nuit+paris" target="_blank"><img src="https://img.youtube.com/vi/U3Lbm5E8jW0/mqdefault.jpg" alt="Vidéo nuit"><div class="video-title">▶️ Les scintillements de nuit</div></a>
+          </div>
+          <p style="font-size:.72rem;color:var(--texte-doux);margin-top:9px;text-align:center">💡 Cliquez pour rechercher sur YouTube</p>
+        </div>
+        <div class="detail-content" id="tab-eiffel-quiz">
+          <div class="quiz-question">
+            <p>❓ En quelle année la Tour Eiffel a-t-elle été construite ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">1870</button>
+            <button class="quiz-option" onclick="repondre(this,true)">1889</button>
+            <button class="quiz-option" onclick="repondre(this,false)">1900</button>
+            <div class="quiz-feedback">🎉 Bravo ! Pour l'Exposition Universelle de 1889 !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ Pourquoi la Tour Eiffel n'a pas été démolie en 1909 ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">Les Parisiens l'adoraient</button>
+            <button class="quiz-option" onclick="repondre(this,true)">Son antenne radio était militairement utile</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Elle était trop solide à démolir</button>
+            <div class="quiz-feedback">📡 Exact ! L'antenne radio a sauvé la Dame de fer !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ Combien de fois la Tour Eiffel scintille-t-elle la nuit ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">Une fois par soir</button>
+            <button class="quiz-option" onclick="repondre(this,true)">À chaque heure pleine</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Seulement le week-end</button>
+            <div class="quiz-feedback">✨ Oui ! 20 000 ampoules, chaque heure, pendant 5 minutes !</div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-eiffel-trouver">
+          <p style="font-size:.8rem;color:var(--texte-doux);margin-bottom:11px">🔎 Cochez quand vous avez trouvé !</p>
+          <ul class="trouver-list">
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Les 4 piliers en arc qui s'enfoncent dans le sol</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Le nom de Gustave Eiffel gravé sous le 1er étage</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Les 72 noms de savants gravés sur la frise (tout autour du 1er étage)</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La vue sur le Champ-de-Mars depuis le 2e étage</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Le restaurant Jules Verne (fenêtres illuminées au 2e)</div></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- fin eiffel -->
+
+    <!-- LES INVALIDES -->
+    <div class="monument-card" id="card-invalides">
+      <div class="monument-header" onclick="toggleMonument('invalides')">
+        <div class="monument-emoji">🏛️</div>
+        <div class="monument-info">
+          <h3>Tombeau de Napoléon — Les Invalides</h3>
+          <p>⏰ Ouvre à 10h • ⏱️ 1h30 conseillée • 20 min à pied</p>
+          <div class="monument-badges"><span class="badge badge-temps">1h30</span><span class="badge badge-lion">🦁 Lien Loire</span></div>
+        </div>
+        <div class="monument-check" id="check-invalides" onclick="toggleCheck(event,'invalides')">✓</div>
+        <span class="chevron" id="chevron-invalides">▼</span>
+      </div>
+      <div class="monument-detail" id="detail-invalides">
+        <img class="detail-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/H%C3%B4tel_des_Invalides_-_D%C3%B4me_from_Champ_de_Mars.jpg/1280px-H%C3%B4tel_des_Invalides_-_D%C3%B4me_from_Champ_de_Mars.jpg" alt="Les Invalides" onerror="this.style.display='none'">
+        <div class="detail-tabs">
+          <button class="detail-tab active" onclick="showTab('invalides','infos',this)">ℹ️ Infos</button>
+          <button class="detail-tab" onclick="showTab('invalides','anecdotes',this)">🔍 Anecdotes</button>
+          <button class="detail-tab" onclick="showTab('invalides','personnages',this)">👑 Personnages</button>
+          <button class="detail-tab" onclick="showTab('invalides','videos',this)">🎬 Vidéos</button>
+          <button class="detail-tab" onclick="showTab('invalides','quiz',this)">🧠 Quiz</button>
+          <button class="detail-tab" onclick="showTab('invalides','trouver',this)">🔎 À trouver</button>
+        </div>
+        <div class="detail-content active" id="tab-invalides-infos">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">⏰ Horaires</div><div class="info-value">10h – 18h (tlj)</div></div>
+            <div class="info-item"><div class="info-label">💶 Adulte</div><div class="info-value">15 €</div></div>
+            <div class="info-item"><div class="info-label">👧 Moins de 18 ans</div><div class="info-value">Gratuit !</div></div>
+            <div class="info-item"><div class="info-label">⏱️ Durée conseillée</div><div class="info-value">1h30 – 2h</div></div>
+            <div class="info-item info-full"><div class="info-label">💡 Conseil pratique</div><div class="info-value" style="font-weight:600">Entrez par le boulevard de La Tour-Maubourg pour éviter la queue. Audioguide inclus. 🦁 Dans la salle des armes, cherchez les fusils marqués "Mre Impale de St Étienne" — fabriqués dans la Loire !</div></div>
+          </div>
+          <a class="btn-reserver" href="https://www.musee-armee.fr/billetterie.html" target="_blank">🎟️ Réserver en ligne</a>
+        </div>
+        <div class="detail-content" id="tab-invalides-anecdotes">
+          <div onclick="toggleAnecdote('inv-a1')"><button class="anecdote-btn">🔍 Le cercueil aux six secrets...</button><div class="anecdote-text" id="inv-a1">Napoléon repose dans SIX cercueils emboîtés comme des poupées russes : fer-blanc, acajou, plomb, acajou à nouveau, ébène, et enfin le grand sarcophage de porphyre rouge. On ne laissera pas l'Empereur s'échapper — ni se décomposer !</div></div>
+          <div onclick="toggleAnecdote('inv-a2')"><button class="anecdote-btn">🔍 Le dôme et ses 12 kg d'or...</button><div class="anecdote-text" id="inv-a2">Le dôme doré des Invalides a été recouvert de 12 kg d'or fin lors de sa restauration. Par temps ensoleillé, on peut le voir depuis plus de 10 kilomètres à la ronde. Louis XIV voulait qu'on le voie de Versailles — et presque !</div></div>
+          <div onclick="toggleAnecdote('inv-a3')"><button class="anecdote-btn">🔍 Les dernières paroles de l'Empereur...</button><div class="anecdote-text" id="inv-a3">Sur son lit de mort à Sainte-Hélène, Napoléon aurait murmuré "France... armée... Joséphine..." Ses dernières pensées allaient à sa patrie, à ses soldats, et à son grand amour — pas à Marie-Louise, sa seconde épouse, ni à son fils.</div></div>
+          <div onclick="toggleAnecdote('inv-a4')"><button class="anecdote-btn">🔍 Le retour des cendres, 19 ans plus tard...</button><div class="anecdote-text" id="inv-a4">Napoléon est mort en 1821 à Sainte-Hélène. Ses restes n'ont été rapatriés qu'en 1840 — 19 ans plus tard ! Le cercueil traversa l'Atlantique en bateau. Un million de Parisiens s'est massé dans les rues. Victor Hugo lui-même en fut bouleversé.</div></div>
+          <div onclick="toggleAnecdote('inv-a5')"><button class="anecdote-btn">🔍 La crypte conçue pour dominer les visiteurs...</button><div class="anecdote-text" id="inv-a5">La crypte est conçue pour qu'on regarde Napoléon d'en haut — depuis une galerie circulaire en surplomb. Mais attention : c'est lui qui domine ! Les visiteurs doivent s'incliner légèrement pour voir par-dessus la balustrade. Finalement, c'est lui qui vous regarde.</div></div>
+          <div onclick="toggleAnecdote('inv-a6')"><button class="anecdote-btn">🔍 4000 soldats vivaient ici...</button><div class="anecdote-text" id="inv-a6">Louis XIV a fait construire les Invalides en 1670 pour héberger ses soldats blessés. À son apogée, le complexe abritait 4 000 vétérans qui y vivaient, mangeaient, priaient et mouraient. C'était une ville entière, avec ses propres règles et sa propre cour.</div></div>
+          <div onclick="toggleAnecdote('inv-a7')"><button class="anecdote-btn">🔍 Le plan d'attentat contre Hitler ici...</button><div class="anecdote-text" id="inv-a7">En 1940, Hitler visita les Invalides pour se recueillir devant le tombeau de Napoléon — son héros. Des résistants avaient prévu un attentat, mais la visite fut annulée au dernier moment. L'histoire aurait pu basculer dans cette crypte.</div></div>
+          <div onclick="toggleAnecdote('inv-a8')"><button class="anecdote-btn">🔍 Le cheval de Napoléon, empaillé, est là...</button><div class="anecdote-text" id="inv-a8">Le musée de l'Armée conserve Vizir, le cheval préféré de Napoléon — empaillé après sa mort. Il a survécu à son maître de 20 ans !</div></div>
+          <div onclick="toggleAnecdote('inv-a9')"><button class="anecdote-btn">🔍 Les Invalides ont armé la Révolution...</button><div class="anecdote-text" id="inv-a9">Le 14 juillet 1789, les révolutionnaires ont pillé les Invalides avant de prendre la Bastille — et récupéré 28 000 fusils ! Sans ces armes (fabriquées à Saint-Étienne !), la prise de la Bastille n'aurait peut-être pas eu lieu.</div></div>
+          <div onclick="toggleAnecdote('inv-a10')"><button class="anecdote-btn">🔍 Napoléon mesurait vraiment 1m68...</button><div class="anecdote-text" id="inv-a10">Napoléon mesurait 1m68 — dans la moyenne de l'époque. La légende de sa petite taille vient d'une erreur de traduction entre les systèmes de mesure français et anglais. Les Anglais ont cru qu'il faisait 1m57. La propagande ennemie a fait le reste.</div></div>
+        </div>
+        <div class="detail-content" id="tab-invalides-personnages">
+          <div class="personnage-card">
+            <img class="personnage-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/David_Jacques-Louis_-_Bonaparte_franchissant_le_Grand_Saint-Bernard%2C_20_mai_1800.jpg/800px-David_Jacques-Louis_-_Bonaparte_franchissant_le_Grand_Saint-Bernard%2C_20_mai_1800.jpg" alt="Napoléon" onerror="this.style.display='none'">
+            <div class="personnage-info">
+              <h4>Napoléon Bonaparte</h4>
+              <div class="personnage-dates">1769 – 1821 · Empereur des Français</div>
+              <div class="personnage-bio">Né en Corse, mort à Sainte-Hélène, enterré à Paris — il parlait français avec un accent corse toute sa vie. Général à 24 ans, Consul à 30, Empereur à 35. Il a réformé la France de fond en comble : Code civil, lycées, Banque de France, préfectures. Il dormait 4 heures par nuit et dictait à plusieurs secrétaires simultanément.</div>
+              <a class="personnage-lien" href="https://fr.wikipedia.org/wiki/Napoléon_Ier" target="_blank">📖 Wikipedia</a>
+              <span class="lion-badge">🦁 Lien Loire : il commandait ses armes à la Manufacture de Saint-Étienne</span>
+            </div>
+          </div>
+          <div class="personnage-card">
+            <img class="personnage-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Louis_XIV_of_France.jpg/800px-Louis_XIV_of_France.jpg" alt="Louis XIV" onerror="this.style.display='none'">
+            <div class="personnage-info">
+              <h4>Louis XIV</h4>
+              <div class="personnage-dates">1638 – 1715 · Le Roi Soleil</div>
+              <div class="personnage-bio">C'est lui qui a fait construire les Invalides en 1670 pour ses soldats blessés. Il a régné 72 ans — le règne le plus long de l'histoire de France. Il se levait chaque matin devant une cour entière, dans une cérémonie appelée le "lever du roi". Même aller aux toilettes était un acte public !</div>
+              <a class="personnage-lien" href="https://fr.wikipedia.org/wiki/Louis_XIV" target="_blank">📖 Wikipedia</a>
+            </div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-invalides-videos">
+          <div class="videos-grid">
+            <a class="video-thumb" href="https://www.youtube.com/results?search_query=tombeau+napoleon+invalides+visite" target="_blank"><img src="https://img.youtube.com/vi/RY8z4FwZ6mQ/mqdefault.jpg" alt="Vidéo Invalides"><div class="video-title">▶️ Visite du tombeau</div></a>
+            <a class="video-thumb" href="https://www.youtube.com/results?search_query=napoleon+invalides+documentaire+histoire" target="_blank"><img src="https://img.youtube.com/vi/3v4j0V6XWKQ/mqdefault.jpg" alt="Vidéo Napoléon"><div class="video-title">▶️ L'histoire de Napoléon</div></a>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-invalides-quiz">
+          <div class="quiz-question">
+            <p>❓ Combien de cercueils contient le tombeau de Napoléon ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">3 cercueils</button>
+            <button class="quiz-option" onclick="repondre(this,true)">6 cercueils</button>
+            <button class="quiz-option" onclick="repondre(this,false)">1 grand sarcophage</button>
+            <div class="quiz-feedback">🎉 Bravo ! 6 cercueils emboîtés comme des poupées russes !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ Qui a fait construire les Invalides ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">Napoléon</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Henri IV</button>
+            <button class="quiz-option" onclick="repondre(this,true)">Louis XIV, le Roi Soleil</button>
+            <div class="quiz-feedback">☀️ Exact ! Louis XIV en 1670 pour ses soldats blessés.</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ Combien de kg d'or recouvre le dôme des Invalides ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">2 kg</button>
+            <button class="quiz-option" onclick="repondre(this,false)">5 kg</button>
+            <button class="quiz-option" onclick="repondre(this,true)">12 kg</button>
+            <div class="quiz-feedback">🥇 Très bien ! 12 kg d'or fin, visible à 10 km !</div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-invalides-trouver">
+          <p style="font-size:.8rem;color:var(--texte-doux);margin-bottom:11px">🔎 Cochez quand vous avez trouvé !</p>
+          <ul class="trouver-list">
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Le sarcophage de porphyre rouge de Napoléon</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Les 12 statues qui entourent la crypte</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Un fusil marqué "Mre Impale de St Étienne" 🦁</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Le cheval Vizir, empaillé, dans le musée</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">L'inscription "Je désire que mes cendres reposent sur les bords de la Seine"</div></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- fin invalides -->
+
+    <!-- ARC DE TRIOMPHE -->
+    <div class="monument-card" id="card-arc">
+      <div class="monument-header" onclick="toggleMonument('arc')">
+        <div class="monument-emoji">🏟️</div>
+        <div class="monument-info">
+          <h3>Arc de Triomphe & Flamme du Soldat Inconnu</h3>
+          <p>⏰ Ouvre à 10h • ⏱️ 1h conseillée • Champs-Élysées</p>
+          <div class="monument-badges"><span class="badge badge-temps">1h</span><span class="badge badge-gratuit">Gratuit -18 ans</span></div>
+        </div>
+        <div class="monument-check" id="check-arc" onclick="toggleCheck(event,'arc')">✓</div>
+        <span class="chevron" id="chevron-arc">▼</span>
+      </div>
+      <div class="monument-detail" id="detail-arc">
+        <img class="detail-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Arc_de_Triomphe%2C_Paris_21_October_2010.jpg/1280px-Arc_de_Triomphe%2C_Paris_21_October_2010.jpg" alt="Arc de Triomphe" onerror="this.style.display='none'">
+        <div class="detail-tabs">
+          <button class="detail-tab active" onclick="showTab('arc','infos',this)">ℹ️ Infos</button>
+          <button class="detail-tab" onclick="showTab('arc','anecdotes',this)">🔍 Anecdotes</button>
+          <button class="detail-tab" onclick="showTab('arc','personnages',this)">👑 Personnages</button>
+          <button class="detail-tab" onclick="showTab('arc','videos',this)">🎬 Vidéos</button>
+          <button class="detail-tab" onclick="showTab('arc','quiz',this)">🧠 Quiz</button>
+          <button class="detail-tab" onclick="showTab('arc','trouver',this)">🔎 À trouver</button>
+        </div>
+        <div class="detail-content active" id="tab-arc-infos">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">⏰ Horaires</div><div class="info-value">10h – 23h (été)</div></div>
+            <div class="info-item"><div class="info-label">💶 Adulte (sommet)</div><div class="info-value">13 €</div></div>
+            <div class="info-item"><div class="info-label">👧 Moins de 18 ans</div><div class="info-value">Gratuit !</div></div>
+            <div class="info-item"><div class="info-label">🔥 Flamme</div><div class="info-value">Ravivée à 18h30 chaque soir</div></div>
+            <div class="info-item info-full"><div class="info-label">💡 Conseil pratique</div><div class="info-value" style="font-weight:600">Soyez là à 18h30 pour la cérémonie de la Flamme — gratuite et très émouvante pour les enfants ! Passez dans le tunnel sous la place pour rejoindre l'Arc (ne traversez jamais la route !).</div></div>
+          </div>
+          <a class="btn-reserver" href="https://www.paris-arc-de-triomphe.fr" target="_blank">🎟️ Réserver le sommet</a>
+        </div>
+        <div class="detail-content" id="tab-arc-anecdotes">
+          <div onclick="toggleAnecdote('arc-a1')"><button class="anecdote-btn">🔍 La Flamme du Soldat Inconnu...</button><div class="anecdote-text" id="arc-a1">Depuis le 11 novembre 1923, une flamme brûle en permanence sous l'Arc de Triomphe sur le tombeau du Soldat Inconnu. Elle est ravivée chaque soir à 18h30 par des Anciens Combattants, dans une cérémonie silencieuse et très digne. En 100 ans, la flamme ne s'est jamais éteinte.</div></div>
+          <div onclick="toggleAnecdote('arc-a2')"><button class="anecdote-btn">🔍 Le Soldat Inconnu et Albert Roche...</button><div class="anecdote-text" id="arc-a2">Le 11 novembre 1920, Albert Roche — natif de Réauville dans la Drôme, que le maréchal Foch avait proclamé "premier soldat de France" — porta le cercueil du Soldat Inconnu jusqu'à l'Arc de Triomphe avec sept camarades. Cet homme avait été blessé 9 fois au combat et capturé à lui seul 1 180 soldats ennemis. Après la guerre, il disparut dans l'anonymat, devenant pompier à Sorgues dans le Vaucluse.</div></div>
+          <div onclick="toggleAnecdote('arc-a3')"><button class="anecdote-btn">🔍 Napoléon ne l'a jamais vu terminé...</button><div class="anecdote-text" id="arc-a3">Napoléon a commandé l'Arc de Triomphe en 1806, après la victoire d'Austerlitz. Il est mort en 1821 — la construction a pris 30 ans et ne fut achevée qu'en 1836 sous Louis-Philippe. Napoléon n'a jamais vu son monument terminé. Mais son cercueil a quand même passé sous l'Arc lors du Retour des Cendres en 1840.</div></div>
+          <div onclick="toggleAnecdote('arc-a4')"><button class="anecdote-btn">🔍 Les 12 avenues qui partent en étoile...</button><div class="anecdote-text" id="arc-a4">L'Arc se trouve au centre d'une étoile parfaite de 12 avenues, dont les Champs-Élysées. C'est Haussmann qui a redessiné ce quartier au XIXe siècle. La Place de l'Étoile s'appelle officiellement Place Charles-de-Gaulle depuis 1970, mais les Parisiens disent encore "l'Étoile".</div></div>
+          <div onclick="toggleAnecdote('arc-a5')"><button class="anecdote-btn">🔍 Un avion a volé sous l'Arc...</button><div class="anecdote-text" id="arc-a5">Le 7 août 1919, le pilote Charles Godefroy a fait passer son biplan sous l'Arc de Triomphe pour célébrer la victoire française. C'était illégal, extraordinairement dangereux — l'Arc mesure 29 mètres de large, son avion en avait 8 — mais il réussit. La photo fit le tour du monde.</div></div>
+          <div onclick="toggleAnecdote('arc-a6')"><button class="anecdote-btn">🔍 558 noms de généraux gravés...</button><div class="anecdote-text" id="arc-a6">Les murs intérieurs de l'Arc portent gravés 660 noms de généraux et 96 noms de batailles napoléoniennes. Les généraux morts au combat ont leur nom souligné. Cherchez "Suchet" — ce général d'origine lyonnaise est l'un des rares à avoir été nommé maréchal sur le champ de bataille par Napoléon lui-même.</div></div>
+          <div onclick="toggleAnecdote('arc-a7')"><button class="anecdote-btn">🔍 Hitler a défilé dessous...</button><div class="anecdote-text" id="arc-a7">Le 14 juin 1940, les troupes allemandes ont défilé sur les Champs-Élysées et sous l'Arc. Hitler a visité Paris ce jour-là — 3 heures seulement, à l'aube, avant que la ville ne se réveille. Il n'est jamais revenu. En 1944, De Gaulle a refait le même chemin en sens inverse, acclamé par des millions de Parisiens.</div></div>
+          <div onclick="toggleAnecdote('arc-a8')"><button class="anecdote-btn">🔍 La vue depuis le sommet est légalement protégée...</button><div class="anecdote-text" id="arc-a8">Du sommet de l'Arc, on peut voir jusqu'au centre de la Défense en ligne droite — c'est la Grande Arche, construite dans l'alignement exact des Champs-Élysées et du Louvre. Cette perspective est protégée par la loi : aucune construction ne peut briser cet axe historique de Paris.</div></div>
+          <div onclick="toggleAnecdote('arc-a9')"><button class="anecdote-btn">🔍 La Marseillaise est sculptée dessus...</button><div class="anecdote-text" id="arc-a9">Le groupe sculpté "Le Départ des volontaires de 1792" — plus connu sous le nom "La Marseillaise" — est la figure centrale du pilier droit de l'Arc. Créé par François Rude en 1836, il représente une France ailée criant "Aux armes !" à des soldats. C'est l'une des sculptures les plus puissantes du XIXe siècle.</div></div>
+          <div onclick="toggleAnecdote('arc-a10')"><button class="anecdote-btn">🔍 La Flamme a voyagé dans les Drôme...</button><div class="anecdote-text" id="arc-a10">En 2021, la flamme du Soldat Inconnu a été portée jusqu'à Réauville dans la Drôme — le village natal d'Albert Roche, le "premier soldat de France" qui porta le cercueil en 1920. Les enfants de l'école locale ont créé une chorégraphie en son honneur. Un bel hommage, un siècle après.</div></div>
+        </div>
+        <div class="detail-content" id="tab-arc-personnages">
+          <div class="personnage-card">
+            <img class="personnage-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Charles_de_Gaulle_%281942%29.jpg/800px-Charles_de_Gaulle_%281942%29.jpg" alt="De Gaulle" onerror="this.style.display='none'">
+            <div class="personnage-info">
+              <h4>Charles de Gaulle</h4>
+              <div class="personnage-dates">1890 – 1970 · Général, Président</div>
+              <div class="personnage-bio">Le 26 août 1944, il descend les Champs-Élysées sous les acclamations d'une foule immense, alors que des tireurs embusqués tirent encore sur la place Notre-Dame. Il marchait droit, refusant de se baisser. Son premier acte : allumer la Flamme du Soldat Inconnu, éteinte pendant l'Occupation. Un geste symbolique fort pour une France qui se relevait.</div>
+              <a class="personnage-lien" href="https://fr.wikipedia.org/wiki/Charles_de_Gaulle" target="_blank">📖 Wikipedia</a>
+            </div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-arc-videos">
+          <div class="videos-grid">
+            <a class="video-thumb" href="https://www.youtube.com/results?search_query=arc+triomphe+flamme+soldat+inconnu+ceremonie" target="_blank"><img src="https://img.youtube.com/vi/default/mqdefault.jpg" alt="Cérémonie Flamme"><div class="video-title">▶️ Cérémonie de la Flamme</div></a>
+            <a class="video-thumb" href="https://www.youtube.com/results?search_query=arc+triomphe+paris+histoire+sommet" target="_blank"><img src="https://img.youtube.com/vi/default/mqdefault.jpg" alt="Arc de Triomphe"><div class="video-title">▶️ Histoire de l'Arc</div></a>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-arc-quiz">
+          <div class="quiz-question">
+            <p>❓ Depuis quand la Flamme brûle-t-elle sous l'Arc de Triomphe ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">1918</button>
+            <button class="quiz-option" onclick="repondre(this,true)">1923</button>
+            <button class="quiz-option" onclick="repondre(this,false)">1945</button>
+            <div class="quiz-feedback">🔥 Bravo ! Depuis le 11 novembre 1923 — sans jamais s'éteindre !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ Combien d'avenues partent de l'Arc de Triomphe ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">8</button>
+            <button class="quiz-option" onclick="repondre(this,false)">10</button>
+            <button class="quiz-option" onclick="repondre(this,true)">12</button>
+            <div class="quiz-feedback">⭐ Exact ! 12 avenues forment l'Étoile !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ À quelle heure est ravivée la Flamme chaque soir ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">17h</button>
+            <button class="quiz-option" onclick="repondre(this,true)">18h30</button>
+            <button class="quiz-option" onclick="repondre(this,false)">20h</button>
+            <div class="quiz-feedback">🕡 Oui ! 18h30, chaque soir, par les Anciens Combattants !</div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-arc-trouver">
+          <ul class="trouver-list">
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La Flamme du Soldat Inconnu au pied de l'Arc</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La sculpture "La Marseillaise" sur le pilier droit</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La vue sur la Grande Arche de la Défense (depuis le sommet)</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Un nom de général souligné (= mort au combat)</div></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- fin arc -->
+
+  </div><!-- fin jour-lundi body -->
+</div><!-- fin jour-lundi card -->
+
+<!-- ======== MARDI ======== -->
+<div class="jour-card">
+  <div class="jour-header" onclick="toggleJour('mardi')">
+    <div>
+      <h2>⛪ Mardi</h2>
+      <div style="font-size:.75rem;color:var(--texte-doux);margin-top:2px">Marché aux Fleurs · Notre-Dame · Sainte-Chapelle · Conciergerie</div>
+    </div>
+    <span class="jour-badge" style="background:var(--violet)">Jour 2</span>
+  </div>
+  <div class="jour-body" id="jour-mardi">
+    <a class="jour-map-btn" href="https://www.google.com/maps/dir/Boulogne-Billancourt/March%C3%A9+aux+fleurs+Paris/Notre-Dame+de+Paris/Sainte-Chapelle/Conciergerie+Paris" target="_blank">🗺️ Itinéraire du jour sur Maps</a>
+    <a class="jour-pause-verte" href="#" onclick="showSection('parcs');return false">🌳 Pause verte : Square du Vert-Galant (pointe de l'île, vue imprenable)</a>
+
+    <!-- NOTRE-DAME -->
+    <div class="monument-card" id="card-notredame">
+      <div class="monument-header" onclick="toggleMonument('notredame')">
+        <div class="monument-emoji">⛪</div>
+        <div class="monument-info">
+          <h3>Notre-Dame de Paris</h3>
+          <p>⏰ Ouvre à 7h50 • ⏱️ 1h conseillée • Gratuit !</p>
+          <div class="monument-badges"><span class="badge badge-gratuit">Gratuit</span><span class="badge badge-resa">Réservation conseillée</span></div>
+        </div>
+        <div class="monument-check" id="check-notredame" onclick="toggleCheck(event,'notredame')">✓</div>
+        <span class="chevron" id="chevron-notredame">▼</span>
+      </div>
+      <div class="monument-detail" id="detail-notredame">
+        <img class="detail-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Cath%C3%A9drale_Notre-Dame_de_Paris%2C_20_March_2014.jpg/1280px-Cath%C3%A9drale_Notre-Dame_de_Paris%2C_20_March_2014.jpg" alt="Notre-Dame" onerror="this.style.display='none'">
+        <div class="detail-tabs">
+          <button class="detail-tab active" onclick="showTab('notredame','infos',this)">ℹ️ Infos</button>
+          <button class="detail-tab" onclick="showTab('notredame','anecdotes',this)">🔍 Anecdotes</button>
+          <button class="detail-tab" onclick="showTab('notredame','personnages',this)">👑 Personnages</button>
+          <button class="detail-tab" onclick="showTab('notredame','videos',this)">🎬 Vidéos</button>
+          <button class="detail-tab" onclick="showTab('notredame','quiz',this)">🧠 Quiz</button>
+          <button class="detail-tab" onclick="showTab('notredame','trouver',this)">🔎 À trouver</button>
+        </div>
+        <div class="detail-content active" id="tab-notredame-infos">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">⏰ Horaires</div><div class="info-value">7h50 – 19h (tlj)</div></div>
+            <div class="info-item"><div class="info-label">💶 Tarif</div><div class="info-value">Gratuit !</div></div>
+            <div class="info-item"><div class="info-label">⏱️ Durée conseillée</div><div class="info-value">1h – 1h30</div></div>
+            <div class="info-item"><div class="info-label">📍 Adresse</div><div class="info-value">6 Parvis Notre-Dame, Île de la Cité</div></div>
+            <div class="info-item info-full"><div class="info-label">💡 Conseil pratique</div><div class="info-value" style="font-weight:600">Cherchez le Point Zéro sur le parvis (dalle en bronze étoilée) — toutes les routes de France partent de là ! Réservation gratuite en ligne conseillée.</div></div>
+          </div>
+          <a class="btn-reserver" href="https://www.notredamedeparis.fr/visite/" target="_blank">🎟️ Réserver une visite</a>
+        </div>
+        <div class="detail-content" id="tab-notredame-anecdotes">
+          <div onclick="toggleAnecdote('nd-a1')"><button class="anecdote-btn">🔍 180 ans de construction...</button><div class="anecdote-text" id="nd-a1">Notre-Dame a mis 180 ans à construire, de 1163 à 1345. Les ouvriers qui posèrent la première pierre n'ont jamais vu la cathédrale terminée. Leurs arrière-arrière-arrière-petits-enfants non plus. Construire Notre-Dame représentait l'œuvre de plusieurs générations — un acte de foi dans l'avenir.</div></div>
+          <div onclick="toggleAnecdote('nd-a2')"><button class="anecdote-btn">🔍 Le Point Zéro, centre de la France...</button><div class="anecdote-text" id="nd-a2">Sur le parvis, une petite étoile en bronze marque le Point Zéro des routes de France. Toutes les distances routières du pays sont mesurées depuis cette dalle. Paris ne se contente pas d'être la capitale — elle est l'origine géographique de la France entière.</div></div>
+          <div onclick="toggleAnecdote('nd-a3')"><button class="anecdote-btn">🔍 Les gargouilles sont des gouttières...</button><div class="anecdote-text" id="nd-a3">Les gargouilles ne sont pas là pour effrayer les démons ni pour décorer. Ce sont des gouttières fonctionnelles ! Elles recueillent l'eau de pluie et la rejettent loin des murs pour protéger la pierre. Les chimères (les monstres assis qui regardent Paris) sont purement décoratives — ajoutées au XIXe siècle par Viollet-le-Duc.</div></div>
+          <div onclick="toggleAnecdote('nd-a4')"><button class="anecdote-btn">🔍 L'incendie de 2019 et le miracle du coq...</button><div class="anecdote-text" id="nd-a4">Le 15 avril 2019, l'incendie a détruit la flèche et une partie de la toiture. Le lendemain, on a retrouvé dans les décombres le coq en cuivre qui ornait le sommet de la flèche — légèrement cabossé mais intact. Il contenait trois reliques cachées depuis 1935. Un miracle pour beaucoup.</div></div>
+          <div onclick="toggleAnecdote('nd-a5')"><button class="anecdote-btn">🔍 Victor Hugo l'a sauvée de la démolition...</button><div class="anecdote-text" id="nd-a5">Au XIXe siècle, Notre-Dame était en si mauvais état que la ville envisageait de la démolir ! C'est la publication de "Notre-Dame de Paris" de Victor Hugo en 1831 qui a retourné l'opinion. Le roman a rendu la cathédrale célèbre dans le monde entier et déclenché sa restauration par Viollet-le-Duc.</div></div>
+          <div onclick="toggleAnecdote('nd-a6')"><button class="anecdote-btn">🔍 Un temple romain était là avant...</button><div class="anecdote-text" id="nd-a6">Avant Notre-Dame, il y avait une basilique chrétienne. Avant la basilique, une église mérovingienne. Et avant tout ça — un temple romain dédié à Jupiter ! L'île de la Cité est un lieu sacré depuis au moins 2000 ans. Quand vous entrez dans Notre-Dame, vous marchez sur 20 siècles de prières.</div></div>
+          <div onclick="toggleAnecdote('nd-a7')"><button class="anecdote-btn">🔍 Napoléon s'est couronné lui-même...</button><div class="anecdote-text" id="nd-a7">Le 2 décembre 1804, lors de son sacre à Notre-Dame, Napoléon a pris la couronne des mains du pape Pie VII et se l'est posée lui-même sur la tête — puis a couronné Joséphine. Message clair : il ne tient son pouvoir d'aucun dieu ni d'aucun homme. Le tableau de David immortalise ce moment saisissant.</div></div>
+          <div onclick="toggleAnecdote('nd-a8')"><button class="anecdote-btn">🔍 Les rosaces, 800 ans sans calcul...</button><div class="anecdote-text" id="nd-a8">Les trois rosaces de Notre-Dame mesurent chacune 13 mètres de diamètre. Construites sans équations ni ordinateurs, elles tiennent depuis 800 ans. La rosace nord date de 1250 et conserve 80% de ses vitraux originaux.</div></div>
+          <div onclick="toggleAnecdote('nd-a9')"><button class="anecdote-btn">🔍 La Révolution l'a transformée en entrepôt à vin...</button><div class="anecdote-text" id="nd-a9">Pendant la Révolution, Notre-Dame a été rebaptisée "Temple de la Raison" puis transformée en entrepôt à vin et en garde-manger ! Les statues des rois de Judée sur la façade ont été décapitées — les révolutionnaires les prenaient pour des rois de France. Les têtes ont été retrouvées en 1977 lors de travaux.</div></div>
+          <div onclick="toggleAnecdote('nd-a10')"><button class="anecdote-btn">🔍 La restauration 2024 — plus claire qu'avant...</button><div class="anecdote-text" id="nd-a10">La restauration après l'incendie a mobilisé 2000 artisans pendant 5 ans. L'intérieur, nettoyé de 200 ans de suie, est apparu dans une clarté que personne n'avait vue depuis des siècles. Certains disaient "c'est trop propre" — mais c'est ainsi qu'elle était au Moyen Âge, lumineuse et colorée.</div></div>
+        </div>
+        <div class="detail-content" id="tab-notredame-personnages">
+          <div class="personnage-card">
+            <img class="personnage-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Victor_Hugo_by_%C3%89tienne_Carjat_1876_-_full.jpg/800px-Victor_Hugo_by_%C3%89tienne_Carjat_1876_-_full.jpg" alt="Victor Hugo" onerror="this.style.display='none'">
+            <div class="personnage-info">
+              <h4>Victor Hugo</h4>
+              <div class="personnage-dates">1802 – 1885 · Écrivain, poète, politique</div>
+              <div class="personnage-bio">Sans lui, Notre-Dame n'existerait peut-être plus ! Son roman "Notre-Dame de Paris" (1831) a sauvé la cathédrale de la démolition. Hugo était aussi un dessinateur compulsif (3000 œuvres !), un homme politique, un amant passionné et un père meurtri. Il est enterré au Panthéon — à quelques centaines de mètres.</div>
+              <a class="personnage-lien" href="https://fr.wikipedia.org/wiki/Victor_Hugo" target="_blank">📖 Wikipedia</a>
+            </div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-notredame-videos">
+          <div class="videos-grid">
+            <a class="video-thumb" href="https://www.youtube.com/results?search_query=Notre-Dame+Paris+histoire+restauration+2024" target="_blank"><img src="https://img.youtube.com/vi/MRiVKufJAJE/mqdefault.jpg" alt="Notre-Dame"><div class="video-title">▶️ Histoire & restauration</div></a>
+            <a class="video-thumb" href="https://www.youtube.com/results?search_query=notre+dame+paris+visite+interieur+2024" target="_blank"><img src="https://img.youtube.com/vi/KMEREhKnXXk/mqdefault.jpg" alt="Visite"><div class="video-title">▶️ Visite intérieure 2024</div></a>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-notredame-quiz">
+          <div class="quiz-question">
+            <p>❓ Combien d'années a duré la construction de Notre-Dame ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">50 ans</button>
+            <button class="quiz-option" onclick="repondre(this,false)">100 ans</button>
+            <button class="quiz-option" onclick="repondre(this,true)">180 ans</button>
+            <div class="quiz-feedback">🎉 Bravo ! De 1163 à 1345 !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ À quoi servent vraiment les gargouilles ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">Effrayer les démons</button>
+            <button class="quiz-option" onclick="repondre(this,true)">Évacuer l'eau de pluie</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Décorer la façade</button>
+            <div class="quiz-feedback">💧 Exact ! Ce sont des gouttières en pierre !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ Qui a écrit "Notre-Dame de Paris" qui a sauvé la cathédrale ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">Alexandre Dumas</button>
+            <button class="quiz-option" onclick="repondre(this,true)">Victor Hugo</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Gustave Flaubert</button>
+            <div class="quiz-feedback">📚 Parfait ! Victor Hugo en 1831 !</div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-notredame-trouver">
+          <ul class="trouver-list">
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Le Point Zéro — la dalle étoilée en bronze sur le parvis</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Une gargouille qui "cracherait" de l'eau</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La grande rosace nord (13 mètres de diamètre !)</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Une chimère qui regarde Paris depuis les hauteurs</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La nouvelle flèche reconstruite après l'incendie</div></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- fin notredame -->
+
+    <!-- SAINTE-CHAPELLE -->
+    <div class="monument-card" id="card-chapelle">
+      <div class="monument-header" onclick="toggleMonument('chapelle')">
+        <div class="monument-emoji">✨</div>
+        <div class="monument-info">
+          <h3>Sainte-Chapelle</h3>
+          <p>⏰ Ouvre à 9h • ⏱️ 45min conseillées • Île de la Cité</p>
+          <div class="monument-badges"><span class="badge badge-temps">45min</span><span class="badge badge-gratuit">Gratuit -18 ans</span></div>
+        </div>
+        <div class="monument-check" id="check-chapelle" onclick="toggleCheck(event,'chapelle')">✓</div>
+        <span class="chevron" id="chevron-chapelle">▼</span>
+      </div>
+      <div class="monument-detail" id="detail-chapelle">
+        <img class="detail-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Sainte-Chapelle_Interior_Stained_Glass.jpg/1280px-Sainte-Chapelle_Interior_Stained_Glass.jpg" alt="Sainte-Chapelle" onerror="this.style.display='none'">
+        <div class="detail-tabs">
+          <button class="detail-tab active" onclick="showTab('chapelle','infos',this)">ℹ️ Infos</button>
+          <button class="detail-tab" onclick="showTab('chapelle','anecdotes',this)">🔍 Anecdotes</button>
+          <button class="detail-tab" onclick="showTab('chapelle','quiz',this)">🧠 Quiz</button>
+          <button class="detail-tab" onclick="showTab('chapelle','trouver',this)">🔎 À trouver</button>
+        </div>
+        <div class="detail-content active" id="tab-chapelle-infos">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">⏰ Horaires</div><div class="info-value">9h – 17h (tlj)</div></div>
+            <div class="info-item"><div class="info-label">💶 Adulte</div><div class="info-value">13 €</div></div>
+            <div class="info-item"><div class="info-label">👧 Moins de 18 ans</div><div class="info-value">Gratuit !</div></div>
+            <div class="info-item"><div class="info-label">⏱️ Durée</div><div class="info-value">45min</div></div>
+            <div class="info-item info-full"><div class="info-label">💡 Conseil pratique</div><div class="info-value" style="font-weight:600">Billet combiné possible avec la Conciergerie (économie). La chapelle haute est le choc absolu — montez impérativement ! Venez par temps ensoleillé pour les vitraux dans toute leur splendeur.</div></div>
+          </div>
+          <a class="btn-reserver" href="https://www.paris-sainte-chapelle.fr/billetterie" target="_blank">🎟️ Réserver en ligne</a>
+        </div>
+        <div class="detail-content" id="tab-chapelle-anecdotes">
+          <div onclick="toggleAnecdote('sc-a1')"><button class="anecdote-btn">🔍 La chapelle a coûté moins cher que la relique...</button><div class="anecdote-text" id="sc-a1">Saint Louis a acheté la Couronne d'épines du Christ à l'Empereur de Constantinople pour 135 000 livres — une fortune. La Sainte-Chapelle construite pour l'abriter n'a coûté "que" 40 000 livres. Le contenant valait moins cher que le contenu. La foi médiévale avait ses propres priorités.</div></div>
+          <div onclick="toggleAnecdote('sc-a2')"><button class="anecdote-btn">🔍 1113 scènes en BD de verre...</button><div class="anecdote-text" id="sc-a2">Les 15 vitraux de la chapelle haute racontent 1113 scènes de la Bible. C'est la plus ancienne bande dessinée de Paris, en verre coloré ! Elle fait 15 mètres de haut et les murs ont presque disparu — remplacés à 75% par du verre. Un exploit architectural du XIIIe siècle.</div></div>
+          <div onclick="toggleAnecdote('sc-a3')"><button class="anecdote-btn">🔍 Construite en 7 ans seulement...</button><div class="anecdote-text" id="sc-a3">La Sainte-Chapelle a été construite en seulement 7 ans (1242-1248) — exploit extraordinaire quand Notre-Dame prenait 180 ans ! Saint Louis voulait abriter sa relique rapidement. Les maîtres bâtisseurs médiévaux avaient des techniques que nous avons du mal à reconstituer aujourd'hui.</div></div>
+          <div onclick="toggleAnecdote('sc-a4')"><button class="anecdote-btn">🔍 Elle a servi d'archives royales...</button><div class="anecdote-text" id="sc-a4">Pendant des siècles, la sacristie de la Sainte-Chapelle a servi d'archives pour les rois de France. Chartes, traités, sceaux royaux — les documents les plus précieux du royaume dormaient là, sous la protection divine. Une combinaison pratique entre le sacré et l'administration royale.</div></div>
+          <div onclick="toggleAnecdote('sc-a5')"><button class="anecdote-btn">🔍 La relique a disparu pendant la Révolution...</button><div class="anecdote-text" id="sc-a5">La Couronne d'épines, la relique pour laquelle tout a été construit, a survécu à la Révolution — mais quittté la Sainte-Chapelle. Elle est aujourd'hui conservée dans le trésor de Notre-Dame, où elle peut être vénérée chaque premier vendredi du mois. La chapelle, elle, est vide de sa relique originelle.</div></div>
+        </div>
+        <div class="detail-content" id="tab-chapelle-quiz">
+          <div class="quiz-question">
+            <p>❓ Pourquoi Saint Louis a-t-il fait construire la Sainte-Chapelle ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">Pour se marier</button>
+            <button class="quiz-option" onclick="repondre(this,true)">Pour abriter la Couronne d'épines du Christ</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Pour impressionner le roi d'Angleterre</button>
+            <div class="quiz-feedback">👑 Bravo ! La relique valait plus cher que la chapelle !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ Combien de scènes bibliques racontent les vitraux ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">200</button>
+            <button class="quiz-option" onclick="repondre(this,false)">500</button>
+            <button class="quiz-option" onclick="repondre(this,true)">1113</button>
+            <div class="quiz-feedback">✨ Exact ! La plus ancienne BD de Paris !</div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-chapelle-trouver">
+          <ul class="trouver-list">
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La chapelle basse (pour les serviteurs) vs chapelle haute (pour le roi)</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Le vitrail de la Genèse (Adam et Ève !)</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La couleur bleue dominante (le bleu royal de Saint Louis)</div></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- fin chapelle -->
+
+    <!-- CONCIERGERIE -->
+    <div class="monument-card" id="card-conciergerie">
+      <div class="monument-header" onclick="toggleMonument('conciergerie')">
+        <div class="monument-emoji">🏰</div>
+        <div class="monument-info">
+          <h3>La Conciergerie</h3>
+          <p>⏰ Ouvre à 9h30 • ⏱️ 1h conseillée • Île de la Cité</p>
+          <div class="monument-badges"><span class="badge badge-temps">1h</span><span class="badge badge-gratuit">Gratuit -18 ans</span></div>
+        </div>
+        <div class="monument-check" id="check-conciergerie" onclick="toggleCheck(event,'conciergerie')">✓</div>
+        <span class="chevron" id="chevron-conciergerie">▼</span>
+      </div>
+      <div class="monument-detail" id="detail-conciergerie">
+        <img class="detail-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Conciergerie%2C_Paris_14_October_2011.jpg/1280px-Conciergerie%2C_Paris_14_October_2011.jpg" alt="Conciergerie" onerror="this.style.display='none'">
+        <div class="detail-tabs">
+          <button class="detail-tab active" onclick="showTab('conciergerie','infos',this)">ℹ️ Infos</button>
+          <button class="detail-tab" onclick="showTab('conciergerie','anecdotes',this)">🔍 Anecdotes</button>
+          <button class="detail-tab" onclick="showTab('conciergerie','quiz',this)">🧠 Quiz</button>
+          <button class="detail-tab" onclick="showTab('conciergerie','trouver',this)">🔎 À trouver</button>
+        </div>
+        <div class="detail-content active" id="tab-conciergerie-infos">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">⏰ Horaires</div><div class="info-value">9h30 – 18h (tlj)</div></div>
+            <div class="info-item"><div class="info-label">💶 Adulte</div><div class="info-value">12 €</div></div>
+            <div class="info-item"><div class="info-label">👧 Moins de 18 ans</div><div class="info-value">Gratuit !</div></div>
+            <div class="info-item info-full"><div class="info-label">💡 Conseil pratique</div><div class="info-value" style="font-weight:600">Billet combiné avec la Sainte-Chapelle (économie). La cellule reconstituée de Marie-Antoinette est très saisissante — les enfants sont toujours impressionnés.</div></div>
+          </div>
+          <a class="btn-reserver" href="https://www.paris-conciergerie.fr" target="_blank">🎟️ Réserver en ligne</a>
+        </div>
+        <div class="detail-content" id="tab-conciergerie-anecdotes">
+          <div onclick="toggleAnecdote('cc-a1')"><button class="anecdote-btn">🔍 Marie-Antoinette y a attendu la guillotine...</button><div class="anecdote-text" id="cc-a1">Marie-Antoinette a passé 76 jours dans une cellule minuscule de la Conciergerie avant d'être guillotinée le 16 octobre 1793. Détail glaçant que les guides n'osent pas toujours raconter : les gardiens récupéraient les chaussures et les vêtements des condamnés pour les revendre. La reine de France est morte sans chaussures.</div></div>
+          <div onclick="toggleAnecdote('cc-a2')"><button class="anecdote-btn">🔍 2700 condamnés à mort en 15 mois...</button><div class="anecdote-text" id="cc-a2">Pendant la Terreur (1793-94), 2 700 condamnés à mort y ont attendu la guillotine en seulement 15 mois. Le bâtiment fonctionnait comme une usine à mort : entrée le matin, jugement express au Tribunal révolutionnaire, guillotine l'après-midi. Robespierre lui-même y finira sa nuit du 9 au 10 thermidor 1794.</div></div>
+          <div onclick="toggleAnecdote('cc-a3')"><button class="anecdote-btn">🔍 C'était le palais des rois avant le Louvre...</button><div class="anecdote-text" id="cc-a3">Avant d'être une prison, la Conciergerie était le palais royal de France — où résidaient les rois jusqu'à Charles V au XIVe siècle. La Grande Salle des Gens d'Armes (aujourd'hui visible) est la plus grande salle gothique médiévale conservée au monde.</div></div>
+          <div onclick="toggleAnecdote('cc-a4')"><button class="anecdote-btn">🔍 Les trois tours ont des noms sombres...</button><div class="anecdote-text" id="cc-a4">Les trois tours qui donnent sur la Seine portent des noms mémorables : la Tour d'Argent (où était conservé le trésor royal), la Tour de César (la plus ancienne), et la Tour Bombée. Une quatrième s'appelait la Tour Bonbec — "bonne bec" — parce que c'était là qu'on torturait les prisonniers pour les faire parler.</div></div>
+          <div onclick="toggleAnecdote('cc-a5')"><button class="anecdote-btn">🔍 Napoléon y fut emprisonné... 4 jours...</button><div class="anecdote-text" id="cc-a5">Après le coup d'État raté du 13 vendémiaire, le jeune général Napoléon Bonaparte fut brièvement mis aux arrêts dans le bâtiment, en 1795. Il en sortit libre et réhabilité. Quelques années plus tard, il serait Consul, puis Empereur. La Conciergerie n'a pas toujours retenu ses prisonniers.</div></div>
+        </div>
+        <div class="detail-content" id="tab-conciergerie-quiz">
+          <div class="quiz-question">
+            <p>❓ Combien de jours Marie-Antoinette a-t-elle attendu à la Conciergerie ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">10 jours</button>
+            <button class="quiz-option" onclick="repondre(this,true)">76 jours</button>
+            <button class="quiz-option" onclick="repondre(this,false)">1 an</button>
+            <div class="quiz-feedback">👑 Exact ! 76 longs jours avant la guillotine.</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ Qu'était la Conciergerie avant d'être une prison ?</p>
+            <button class="quiz-option" onclick="repondre(this,true)">Le palais royal de France</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Une église</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Un marché</button>
+            <div class="quiz-feedback">🏰 Bravo ! Les rois y vivaient avant le Louvre !</div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-conciergerie-trouver">
+          <ul class="trouver-list">
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La cellule reconstituée de Marie-Antoinette</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La Grande Salle des Gens d'Armes (salle gothique géante)</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La Tour Bonbec depuis l'extérieur (côté Seine)</div></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- fin conciergerie -->
+
+  </div><!-- fin jour-mardi body -->
+</div><!-- fin jour-mardi card -->
+
+<!-- ======== MERCREDI ======== -->
+<div class="jour-card">
+  <div class="jour-header" onclick="toggleJour('mercredi')">
+    <div>
+      <h2>🖼️ Mercredi</h2>
+      <div style="font-size:.75rem;color:var(--texte-doux);margin-top:2px">Louvre · Palais Royal · Fontaine des Innocents · Carnavalet</div>
+    </div>
+    <span class="jour-badge" style="background:var(--vert)">Jour 3</span>
+  </div>
+  <div class="jour-body" id="jour-mercredi">
+    <a class="jour-map-btn" href="https://www.google.com/maps/dir/Boulogne-Billancourt/Musee+du+Louvre/Jardin+du+Palais+Royal/Fontaine+des+Innocents+Paris/Musee+Carnavalet" target="_blank">🗺️ Itinéraire du jour sur Maps</a>
+    <a class="jour-pause-verte" href="#" onclick="showSection('parcs');return false">🌳 Pause verte : Jardin des Tuileries (bateaux miniatures !) ou Palais Royal</a>
+
+    <!-- LOUVRE -->
+    <div class="monument-card" id="card-louvre">
+      <div class="monument-header" onclick="toggleMonument('louvre')">
+        <div class="monument-emoji">🖼️</div>
+        <div class="monument-info">
+          <h3>Musée du Louvre</h3>
+          <p>⏰ Ouvre à 9h • ⏱️ 3h conseillées • Fermé le mardi !</p>
+          <div class="monument-badges"><span class="badge badge-temps">3h</span><span class="badge badge-gratuit">Gratuit -18 ans</span><span class="badge badge-resa">Réservation obligatoire</span></div>
+        </div>
+        <div class="monument-check" id="check-louvre" onclick="toggleCheck(event,'louvre')">✓</div>
+        <span class="chevron" id="chevron-louvre">▼</span>
+      </div>
+      <div class="monument-detail" id="detail-louvre">
+        <img class="detail-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Louvre_Museum_Wikimedia_Commons.jpg/1280px-Louvre_Museum_Wikimedia_Commons.jpg" alt="Louvre" onerror="this.style.display='none'">
+        <div class="detail-tabs">
+          <button class="detail-tab active" onclick="showTab('louvre','infos',this)">ℹ️ Infos</button>
+          <button class="detail-tab" onclick="showTab('louvre','anecdotes',this)">🔍 Anecdotes</button>
+          <button class="detail-tab" onclick="showTab('louvre','personnages',this)">👑 Personnages</button>
+          <button class="detail-tab" onclick="showTab('louvre','videos',this)">🎬 Vidéos</button>
+          <button class="detail-tab" onclick="showTab('louvre','quiz',this)">🧠 Quiz</button>
+          <button class="detail-tab" onclick="showTab('louvre','trouver',this)">🔎 À trouver</button>
+        </div>
+        <div class="detail-content active" id="tab-louvre-infos">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">⏰ Horaires</div><div class="info-value">9h – 18h (fermé mardi)</div></div>
+            <div class="info-item"><div class="info-label">💶 Adulte</div><div class="info-value">22 €</div></div>
+            <div class="info-item"><div class="info-label">👧 Moins de 18 ans</div><div class="info-value">Gratuit !</div></div>
+            <div class="info-item"><div class="info-label">⏱️ Durée conseillée</div><div class="info-value">3h (ciblé)</div></div>
+            <div class="info-item info-full"><div class="info-label">💡 Conseil pratique</div><div class="info-value" style="font-weight:600">Entrez par le métro Palais-Royal (moins de queue). Objectifs enfants : Victoire de Samothrace, Joconde, Code de Hammourabi. 🦁 Dans les sous-sols : les douves médiévales de Philippe Auguste — forteresse du XIIe siècle !</div></div>
+          </div>
+          <a class="btn-reserver" href="https://www.louvre.fr/billetterie" target="_blank">🎟️ Réserver en ligne</a>
+        </div>
+        <div class="detail-content" id="tab-louvre-anecdotes">
+          <div onclick="toggleAnecdote('lv-a1')"><button class="anecdote-btn">🔍 C'était une forteresse médiévale...</button><div class="anecdote-text" id="lv-a1">Le Louvre n'était pas un musée mais une forteresse construite en 1190 par Philippe Auguste pour protéger Paris pendant qu'il partait en croisade. Dans les caves accessibles au public, on voit encore les douves médiévales et les tours d'origine — le sous-sol du plus grand musée du monde est un château fort du XIIe siècle !</div></div>
+          <div onclick="toggleAnecdote('lv-a2')"><button class="anecdote-btn">🔍 La Joconde est plus petite qu'on croit...</button><div class="anecdote-text" id="lv-a2">La Joconde ne mesure que 77 × 53 cm — à peu près la taille d'une grande feuille de papier. Beaucoup de visiteurs sont déçus en la voyant de loin derrière ses barrières. Astuce : concentrez-vous sur l'arrière-plan mystérieux — Léonard a peint deux paysages légèrement différents de chaque côté du visage. Vos deux yeux voient des choses différentes !</div></div>
+          <div onclick="toggleAnecdote('lv-a3')"><button class="anecdote-btn">🔍 La Victoire de Samothrace a perdu la tête...</button><div class="anecdote-text" id="lv-a3">La Victoire de Samothrace, cette femme ailée au sommet du grand escalier, est l'une des plus belles sculptures grecques au monde — et elle n'a pas de tête ! Elle date de 190 avant J-C. Sa main droite a été retrouvée en 1950 à Samothrace, en Grèce. Elle n'est toujours pas assemblée au reste du corps.</div></div>
+          <div onclick="toggleAnecdote('lv-a4')"><button class="anecdote-btn">🔍 La plus vieille loi du monde est là...</button><div class="anecdote-text" id="lv-a4">Le Code de Hammourabi, gravé vers 1750 avant J-C sur une stèle de basalte noir de 2,25 m, est la plus ancienne loi écrite au monde. Un roi babylonien y détaille 282 lois — dont certaines franchement sévères : si un maçon construit une maison qui s'effondre et tue le fils du propriétaire, le fils du maçon sera tué. La justice avait ses propres règles.</div></div>
+          <div onclick="toggleAnecdote('lv-a5')"><button class="anecdote-btn">🔍 La Pyramide était très contestée...</button><div class="anecdote-text" id="lv-a5">La Pyramide de verre de I.M. Pei a été inaugurée en 1989 sous la présidence de Mitterrand — et les Parisiens la détestaient ! Comme pour la Tour Eiffel 100 ans plus tôt, les intellectuels ont signé des pétitions. Aujourd'hui, elle est devenue l'un des symboles de Paris. Les Parisiens apprennent lentement à aimer ce qui les choque d'abord.</div></div>
+          <div onclick="toggleAnecdote('lv-a6')"><button class="anecdote-btn">🔍 Léonard de Vinci est enterré en France...</button><div class="anecdote-text" id="lv-a6">Léonard de Vinci a passé les 3 dernières années de sa vie en France, invité par François Ier au château d'Amboise. Il est mort à Clos-Lucé en 1519. C'est pour ça que plusieurs de ses œuvres majeures — dont la Joconde — se trouvent au Louvre. François Ier avait acheté ses tableaux directement. La France en hérita à la mort du peintre.</div></div>
+          <div onclick="toggleAnecdote('lv-a7')"><button class="anecdote-btn">🔍 Il a été pillé par les nazis...</button><div class="anecdote-text" id="lv-a7">En 1939, avant l'arrivée des Allemands, les conservateurs du Louvre ont organisé en secret l'évacuation de 3 700 caisses d'œuvres vers des châteaux de la Loire et du Périgord. La plupart ont survécu. Mais les nazis ont quand même pillé des milliers d'œuvres appartenant à des familles juives — certaines n'ont jamais été restituées.</div></div>
+          <div onclick="toggleAnecdote('lv-a8')"><button class="anecdote-btn">🔍 Visiter tout le Louvre prendrait 9 jours...</button><div class="anecdote-text" id="lv-a8">Le Louvre possède 35 000 œuvres exposées sur 73 000 m². Si vous passiez 30 secondes devant chaque œuvre, 8 heures par jour, il vous faudrait plus de 9 jours pour tout voir. C'est le plus grand musée du monde. L'astuce des pros : choisir 3-4 salles et les parcourir lentement plutôt que de courir partout.</div></div>
+          <div onclick="toggleAnecdote('lv-a9')"><button class="anecdote-btn">🔍 Le vol de la Joconde a rendu Picasso suspect...</button><div class="anecdote-text" id="lv-a9">En 1911, la Joconde a été volée du Louvre et a disparu pendant 2 ans ! La police a interrogé notamment Picasso et Guillaume Apollinaire, soupçonnés sans raison. C'est un vitrier italien qui l'avait dissimulée sous son manteau en sortant simplement par la porte. Elle fut retrouvée à Florence en 1913.</div></div>
+          <div onclick="toggleAnecdote('lv-a10')"><button class="anecdote-btn">🔍 François Ier, roi de la Loire, l'a transformé...</button><div class="anecdote-text" id="lv-a10">C'est François Ier, roi qui vivait principalement dans ses châteaux de la Loire, qui a transformé la forteresse médiévale en palais Renaissance à partir de 1546. 🦁 Le Louvre et la Loire sont intimement liés — c'est un roi ligérien qui a créé le musée que vous visitez !</div></div>
+        </div>
+        <div class="detail-content" id="tab-louvre-personnages">
+          <div class="personnage-card">
+            <img class="personnage-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Philip_II_of_France.jpg/800px-Philip_II_of_France.jpg" alt="Philippe Auguste" onerror="this.style.display='none'">
+            <div class="personnage-info">
+              <h4>Philippe Auguste</h4>
+              <div class="personnage-dates">1165 – 1223 · Roi de France</div>
+              <div class="personnage-bio">C'est lui qui a fait construire la forteresse du Louvre en 1190 pour protéger Paris pendant qu'il partait en croisade. Il a aussi fait paver les rues de Paris pour la première fois. Sous son règne, Paris est devenue la plus grande ville d'Europe occidentale.</div>
+              <a class="personnage-lien" href="https://fr.wikipedia.org/wiki/Philippe_II_de_France" target="_blank">📖 Wikipedia</a>
+            </div>
+          </div>
+          <div class="personnage-card">
+            <img class="personnage-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Francois_I_of_France.jpg/800px-Francois_I_of_France.jpg" alt="François Ier" onerror="this.style.display='none'">
+            <div class="personnage-info">
+              <h4>François Ier</h4>
+              <div class="personnage-dates">1494 – 1547 · Le Roi-Chevalier</div>
+              <div class="personnage-bio">Né à Cognac, amateur d'art passionné, François Ier a transformé le Louvre en palais Renaissance. Il a invité Léonard de Vinci en France et acheté la Joconde. Il vivait principalement dans les châteaux de la Loire — Chambord, Amboise, Blois. Un roi ligérien qui a fait du Louvre ce qu'il est.</div>
+              <a class="personnage-lien" href="https://fr.wikipedia.org/wiki/Fran%C3%A7ois_Ier" target="_blank">📖 Wikipedia</a>
+              <span class="lion-badge">🦁 Roi des châteaux de la Loire</span>
+            </div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-louvre-videos">
+          <div class="videos-grid">
+            <a class="video-thumb" href="https://www.youtube.com/results?search_query=louvre+visite+enfants+joconde+victoire" target="_blank"><img src="https://img.youtube.com/vi/default/mqdefault.jpg" alt="Louvre"><div class="video-title">▶️ Visite famille Louvre</div></a>
+            <a class="video-thumb" href="https://www.youtube.com/results?search_query=louvre+histoire+chateau+medieval+documentaire" target="_blank"><img src="https://img.youtube.com/vi/default/mqdefault.jpg" alt="Louvre histoire"><div class="video-title">▶️ Louvre : du château au musée</div></a>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-louvre-quiz">
+          <div class="quiz-question">
+            <p>❓ Qu'était le Louvre avant d'être un musée ?</p>
+            <button class="quiz-option" onclick="repondre(this,true)">Une forteresse médiévale</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Une église</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Un marché</button>
+            <div class="quiz-feedback">🏰 Exact ! Construit en 1190 par Philippe Auguste !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ Combien de temps pour tout voir au Louvre (30 sec par œuvre) ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">2 jours</button>
+            <button class="quiz-option" onclick="repondre(this,false)">4 jours</button>
+            <button class="quiz-option" onclick="repondre(this,true)">9 jours</button>
+            <div class="quiz-feedback">😱 Oui ! C'est le plus grand musée du monde !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ Quelle est la taille de la Joconde ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">2 mètres × 1,5 mètre</button>
+            <button class="quiz-option" onclick="repondre(this,true)">77 cm × 53 cm</button>
+            <button class="quiz-option" onclick="repondre(this,false)">3 mètres × 2 mètres</button>
+            <div class="quiz-feedback">📏 Exact ! Toute petite, n'est-ce pas ?</div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-louvre-trouver">
+          <ul class="trouver-list">
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La Victoire de Samothrace (sans tête) au sommet du grand escalier</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La Joconde — plus petite qu'on l'imaginait !</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Le Code de Hammourabi — la plus vieille loi du monde</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Les douves médiévales dans les sous-sols 🦁</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La Pyramide de verre depuis l'intérieur</div></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- fin louvre -->
+
+    <!-- CARNAVALET -->
+    <div class="monument-card" id="card-carnavalet">
+      <div class="monument-header" onclick="toggleMonument('carnavalet')">
+        <div class="monument-emoji">🏺</div>
+        <div class="monument-info">
+          <h3>Musée Carnavalet — Histoire de Paris</h3>
+          <p>⏰ Ouvre à 10h • ⏱️ 1h30 conseillée • Gratuit !</p>
+          <div class="monument-badges"><span class="badge badge-gratuit">Gratuit !</span><span class="badge badge-temps">1h30</span></div>
+        </div>
+        <div class="monument-check" id="check-carnavalet" onclick="toggleCheck(event,'carnavalet')">✓</div>
+        <span class="chevron" id="chevron-carnavalet">▼</span>
+      </div>
+      <div class="monument-detail" id="detail-carnavalet">
+        <img class="detail-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Musée_Carnavalet%2C_courtyard.jpg/1280px-Musée_Carnavalet%2C_courtyard.jpg" alt="Carnavalet" onerror="this.style.display='none'">
+        <div class="detail-tabs">
+          <button class="detail-tab active" onclick="showTab('carnavalet','infos',this)">ℹ️ Infos</button>
+          <button class="detail-tab" onclick="showTab('carnavalet','anecdotes',this)">🔍 Anecdotes</button>
+          <button class="detail-tab" onclick="showTab('carnavalet','quiz',this)">🧠 Quiz</button>
+          <button class="detail-tab" onclick="showTab('carnavalet','trouver',this)">🔎 À trouver</button>
+        </div>
+        <div class="detail-content active" id="tab-carnavalet-infos">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">⏰ Horaires</div><div class="info-value">10h – 18h (fermé lundi)</div></div>
+            <div class="info-item"><div class="info-label">💶 Tarif</div><div class="info-value">Gratuit !</div></div>
+            <div class="info-item"><div class="info-label">📍 Adresse</div><div class="info-value">23 rue de Sévigné, Marais</div></div>
+            <div class="info-item info-full"><div class="info-label">💡 Conseil pratique</div><div class="info-value" style="font-weight:600">Le musée de l'histoire de Paris dans deux hôtels particuliers du XVIIe reliés. Cherchez la pirogue préhistorique retrouvée sous Paris — 4000 ans avant J-C ! Et la clef de la Bastille.</div></div>
+          </div>
+          <a class="btn-reserver" href="https://www.carnavalet.paris.fr" target="_blank">🎟️ Réserver (gratuit)</a>
+        </div>
+        <div class="detail-content" id="tab-carnavalet-anecdotes">
+          <div onclick="toggleAnecdote('cv-a1')"><button class="anecdote-btn">🔍 Une pirogue de 4000 ans sous Paris...</button><div class="anecdote-text" id="cv-a1">Le musée expose une pirogue préhistorique retrouvée lors de fouilles sous Paris — elle date de 4000 avant J-C. Des hommes naviguaient sur la Seine deux mille ans avant la fondation de Rome. Paris est une des villes les plus vieilles d'Europe, bien avant les Romains.</div></div>
+          <div onclick="toggleAnecdote('cv-a2')"><button class="anecdote-btn">🔍 La clef de la Bastille est là...</button><div class="anecdote-text" id="cv-a2">Parmi les trésors du Carnavalet : la vraie clef de la Bastille, remise à George Washington après sa prise. Elle figure parmi les objets les plus symboliques de la Révolution française. À côté : des objets personnels de Robespierre, de Marie-Antoinette, et même une mèche de cheveux de Napoléon.</div></div>
+          <div onclick="toggleAnecdote('cv-a3')"><button class="anecdote-btn">🔍 Mme de Sévigné écrivait ses lettres ici...</button><div class="anecdote-text" id="cv-a3">La marquise de Sévigné (1626-1696) a vécu dans cet hôtel particulier et y a écrit ses célèbres lettres à sa fille — 1 120 lettres conservées qui constituent l'un des chefs-d'œuvre de la littérature française. Elle racontait la vie de la cour de Louis XIV avec un talent journalistique extraordinaire pour l'époque.</div></div>
+          <div onclick="toggleAnecdote('cv-a4')"><button class="anecdote-btn">🔍 Un salon Art Nouveau démonté et remonté...</button><div class="anecdote-text" id="cv-a4">Dans le musée, on peut voir un salon de bijouterie Art Nouveau de 1900 — celui de la maison Fouquet, avenue de l'Opéra — démonté pièce par pièce et remonté ici. Designed par Alphonse Mucha, l'affichiste tchèque. Un chef-d'œuvre qui aurait disparu lors d'une rénovation sinon.</div></div>
+        </div>
+        <div class="detail-content" id="tab-carnavalet-quiz">
+          <div class="quiz-question">
+            <p>❓ Quel objet symbolique de la Révolution est exposé au Carnavalet ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">La guillotine</button>
+            <button class="quiz-option" onclick="repondre(this,true)">La clef de la Bastille</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Le trône de Louis XVI</button>
+            <div class="quiz-feedback">🗝️ Bravo ! Remise à George Washington après 1789 !</div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-carnavalet-trouver">
+          <ul class="trouver-list">
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La pirogue préhistorique (4000 ans avant J-C !)</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La clef de la Bastille</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Un objet personnel de Napoléon ou Robespierre</div></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- fin carnavalet -->
+
+  </div><!-- fin jour-mercredi body -->
+</div><!-- fin jour-mercredi card -->
+
+<!-- ======== JEUDI ======== -->
+<div class="jour-card">
+  <div class="jour-header" onclick="toggleJour('jeudi')">
+    <div>
+      <h2>🚀 Jeudi</h2>
+      <div style="font-size:.75rem;color:var(--texte-doux);margin-top:2px">Cité des Sciences & Parc de La Villette</div>
+    </div>
+    <span class="jour-badge" style="background:var(--rose)">Jour 4</span>
+  </div>
+  <div class="jour-body" id="jour-jeudi">
+    <a class="jour-map-btn" href="https://www.google.com/maps/dir/Boulogne-Billancourt/Cit%C3%A9+des+Sciences+et+de+l'Industrie+Paris" target="_blank">🗺️ Itinéraire du jour sur Maps</a>
+    <a class="jour-pause-verte" href="#" onclick="showSection('parcs');return false">🌳 Pause verte : Parc de La Villette (dragon toboggan géant !)</a>
+
+    <!-- CITÉ DES SCIENCES -->
+    <div class="monument-card" id="card-sciences">
+      <div class="monument-header" onclick="toggleMonument('sciences')">
+        <div class="monument-emoji">🔭</div>
+        <div class="monument-info">
+          <h3>Cité des Sciences & L'Argonaute</h3>
+          <p>⏰ Ouvre à 9h30 • ⏱️ Journée entière • Métro ligne 7</p>
+          <div class="monument-badges"><span class="badge badge-temps">Journée</span><span class="badge badge-resa">Réservation conseillée</span></div>
+        </div>
+        <div class="monument-check" id="check-sciences" onclick="toggleCheck(event,'sciences')">✓</div>
+        <span class="chevron" id="chevron-sciences">▼</span>
+      </div>
+      <div class="monument-detail" id="detail-sciences">
+        <img class="detail-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Cit%C3%A9_des_Sciences_et_de_l%27Industrie_1.jpg/1280px-Cit%C3%A9_des_Sciences_et_de_l%27Industrie_1.jpg" alt="Cité des Sciences" onerror="this.style.display='none'">
+        <div class="detail-tabs">
+          <button class="detail-tab active" onclick="showTab('sciences','infos',this)">ℹ️ Infos</button>
+          <button class="detail-tab" onclick="showTab('sciences','anecdotes',this)">🔍 Anecdotes</button>
+          <button class="detail-tab" onclick="showTab('sciences','quiz',this)">🧠 Quiz</button>
+          <button class="detail-tab" onclick="showTab('sciences','trouver',this)">🔎 À trouver</button>
+        </div>
+        <div class="detail-content active" id="tab-sciences-infos">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">⏰ Horaires</div><div class="info-value">9h30 – 18h (fermé lundi)</div></div>
+            <div class="info-item"><div class="info-label">💶 Adulte</div><div class="info-value">17 €</div></div>
+            <div class="info-item"><div class="info-label">👧 2–5 ans</div><div class="info-value">8 €</div></div>
+            <div class="info-item"><div class="info-label">👧 6–25 ans</div><div class="info-value">13 €</div></div>
+            <div class="info-item"><div class="info-label">🚇 Transport</div><div class="info-value">Métro ligne 7 → Porte de la Villette (50 min)</div></div>
+            <div class="info-item info-full"><div class="info-label">💡 Conseil pratique</div><div class="info-value" style="font-weight:600">Réservez les séances du planétarium à l'avance ! L'Argonaute (vrai sous-marin dehors) est inclus dans le billet. La Cité des Enfants (dans le bâtiment) est parfaite pour les 5-8 ans avec des ateliers interactifs.</div></div>
+          </div>
+          <a class="btn-reserver" href="https://www.cite-sciences.fr/billetterie" target="_blank">🎟️ Réserver en ligne</a>
+        </div>
+        <div class="detail-content" id="tab-sciences-anecdotes">
+          <div onclick="toggleAnecdote('sc2-a1')"><button class="anecdote-btn">🔍 Construite sur d'anciens abattoirs...</button><div class="anecdote-text" id="sc2-a1">La Cité des Sciences a été construite là où se trouvaient les abattoirs de La Villette — une cité de la mort transformée en cité du savoir. La construction avait déjà commencé pour de nouveaux abattoirs en 1979 quand le projet fut abandonné. Plutôt que de démolir, on a tout repensé. C'est presque un symbole.</div></div>
+          <div onclick="toggleAnecdote('sc2-a2')"><button class="anecdote-btn">🔍 L'Argonaute est un vrai sous-marin...</button><div class="anecdote-text" id="sc2-a2">L'Argonaute, amarré dehors dans le canal, est un vrai sous-marin militaire qui a servi dans la Marine nationale française de 1958 à 1982. Il a parcouru plus d'un million de kilomètres. Vous pouvez visiter l'intérieur — et comprendre pourquoi les sous-mariniers méritent un grand respect : c'est minuscule !</div></div>
+          <div onclick="toggleAnecdote('sc2-a3')"><button class="anecdote-btn">🔍 3 fois la surface de Notre-Dame...</button><div class="anecdote-text" id="sc2-a3">Le bâtiment de la Cité des Sciences couvre 30 000 m² — environ trois fois la superficie de Notre-Dame de Paris. L'architecte Adrien Fainsilber a intégré l'eau et la végétation dans l'architecture elle-même : les serres géantes et le canal extérieur font partie du design original.</div></div>
+          <div onclick="toggleAnecdote('sc2-a4')"><button class="anecdote-btn">🔍 Le dragon du parc existe depuis 1987...</button><div class="anecdote-text" id="sc2-a4">Dans le Parc de la Villette, un dragon géant en toboggan enchante les enfants depuis 1987. C'est l'une des aires de jeux les plus connues de Paris — 50 mètres de long, plusieurs toboggans intégrés. Des générations de parents parisiens se souviennent d'y avoir emmené leurs propres parents !</div></div>
+        </div>
+        <div class="detail-content" id="tab-sciences-quiz">
+          <div class="quiz-question">
+            <p>❓ Qu'y avait-il avant la Cité des Sciences ?</p>
+            <button class="quiz-option" onclick="repondre(this,true)">Des abattoirs</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Une forêt</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Un aéroport</button>
+            <div class="quiz-feedback">🐄 Exact ! Une cité de la mort devenue cité du savoir !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ L'Argonaute, c'est quoi ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">Une fusée</button>
+            <button class="quiz-option" onclick="repondre(this,true)">Un vrai sous-marin militaire</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Un train ancien</button>
+            <div class="quiz-feedback">⚓ Bravo ! Un sous-marin qui a navigué 1 million de km !</div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-sciences-trouver">
+          <ul class="trouver-list">
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">L'Argonaute — le vrai sous-marin amarré dehors</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Le planétarium (si réservé)</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Le dragon toboggan géant dans le parc</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La Géode (boule miroir géante)</div></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- fin sciences -->
+
+  </div><!-- fin jour-jeudi body -->
+</div><!-- fin jour-jeudi card -->
+
+<!-- ======== VENDREDI ======== -->
+<div class="jour-card">
+  <div class="jour-header" onclick="toggleJour('vendredi')">
+    <div>
+      <h2>👑 Vendredi</h2>
+      <div style="font-size:.75rem;color:var(--texte-doux);margin-top:2px">Château de Versailles — Départ 17h</div>
+    </div>
+    <span class="jour-badge" style="background:var(--orange)">Jour 5</span>
+  </div>
+  <div class="jour-body" id="jour-vendredi">
+    <a class="jour-map-btn" href="https://www.google.com/maps/dir/Boulogne-Billancourt/Ch%C3%A2teau+de+Versailles" target="_blank">🗺️ Itinéraire : RER C vers Versailles</a>
+    <div style="background:var(--orange-clair);border-radius:var(--radius-sm);padding:10px 13px;margin:0 10px 11px;font-size:.8rem;color:var(--orange);font-weight:700">⚠️ Quitter Versailles avant 15h pour être à Boulogne à 17h (RER C + 40min)</div>
+
+    <!-- VERSAILLES -->
+    <div class="monument-card" id="card-versailles">
+      <div class="monument-header" onclick="toggleMonument('versailles')">
+        <div class="monument-emoji">👑</div>
+        <div class="monument-info">
+          <h3>Château de Versailles</h3>
+          <p>⏰ Ouvre à 9h • ⏱️ Journée • RER C depuis Boulogne</p>
+          <div class="monument-badges"><span class="badge badge-temps">Journée</span><span class="badge badge-gratuit">Gratuit -18 ans</span><span class="badge badge-resa">Réservation obligatoire</span></div>
+        </div>
+        <div class="monument-check" id="check-versailles" onclick="toggleCheck(event,'versailles')">✓</div>
+        <span class="chevron" id="chevron-versailles">▼</span>
+      </div>
+      <div class="monument-detail" id="detail-versailles">
+        <img class="detail-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Palace_of_Versailles%2C_view_from_the_parterre_d%27eau.jpg/1280px-Palace_of_Versailles%2C_view_from_the_parterre_d%27eau.jpg" alt="Versailles" onerror="this.style.display='none'">
+        <div class="detail-tabs">
+          <button class="detail-tab active" onclick="showTab('versailles','infos',this)">ℹ️ Infos</button>
+          <button class="detail-tab" onclick="showTab('versailles','anecdotes',this)">🔍 Anecdotes</button>
+          <button class="detail-tab" onclick="showTab('versailles','personnages',this)">👑 Personnages</button>
+          <button class="detail-tab" onclick="showTab('versailles','videos',this)">🎬 Vidéos</button>
+          <button class="detail-tab" onclick="showTab('versailles','quiz',this)">🧠 Quiz</button>
+          <button class="detail-tab" onclick="showTab('versailles','trouver',this)">🔎 À trouver</button>
+        </div>
+        <div class="detail-content active" id="tab-versailles-infos">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">⏰ Horaires</div><div class="info-value">9h – 18h30 (fermé lundi)</div></div>
+            <div class="info-item"><div class="info-label">💶 Adulte</div><div class="info-value">21 €</div></div>
+            <div class="info-item"><div class="info-label">👧 Moins de 18 ans</div><div class="info-value">Gratuit !</div></div>
+            <div class="info-item"><div class="info-label">🚆 Transport</div><div class="info-value">RER C → Versailles Château-RG (40 min)</div></div>
+            <div class="info-item info-full"><div class="info-label">💡 Conseil pratique</div><div class="info-value" style="font-weight:600">Réservez impérativement (chateauversailles.fr). Arrivez à l'ouverture (9h) pour la Galerie des Glaces sans foule. Prévoyez pique-nique pour les jardins. Quittez avant 14h30 pour être à Boulogne à 17h !</div></div>
+          </div>
+          <a class="btn-reserver" href="https://www.chateauversailles.fr/preparer-ma-visite/billetterie" target="_blank">🎟️ Réserver en ligne</a>
+        </div>
+        <div class="detail-content" id="tab-versailles-anecdotes">
+          <div onclick="toggleAnecdote('vs-a1')"><button class="anecdote-btn">🔍 Louis XIV se levait devant toute la cour...</button><div class="anecdote-text" id="vs-a1">Chaque matin à Versailles, le "lever du roi" était une cérémonie officielle à laquelle assistaient des dizaines de courtisans. Lui tendre sa chemise était un privilège accordé aux nobles les plus importants. Même se laver les mains se faisait en public. La vie du Roi Soleil n'avait aucune intimité — c'était voulu.</div></div>
+          <div onclick="toggleAnecdote('vs-a2')"><button class="anecdote-btn">🔍 357 miroirs dans la Galerie des Glaces...</button><div class="anecdote-text" id="vs-a2">La Galerie des Glaces mesure 73 mètres de long et compte 357 miroirs face à 357 fenêtres. Quand elle était illuminée de 20 000 bougies pour les grands bals royaux, l'effet était indescriptible. C'est là que fut signé le Traité de Versailles en 1919, mettant fin à la Première Guerre mondiale.</div></div>
+          <div onclick="toggleAnecdote('vs-a3')"><button class="anecdote-btn">🔍 Il n'y avait pas de toilettes...</button><div class="anecdote-text" id="vs-a3">À l'époque de Louis XIV, Versailles ne comptait aucun toilette au sens moderne. On utilisait des chaises percées discrètement placées dans des alcôves, ou tout simplement les coins des couloirs. Le roi lui-même recevait parfois ses ministres assis sur sa chaise percée. Certains nobles apportaient leurs propres pots de chambre dans leurs malles de voyage.</div></div>
+          <div onclick="toggleAnecdote('vs-a4')"><button class="anecdote-btn">🔍 Louis XIV y a déménagé pour fuir Paris...</button><div class="anecdote-text" id="vs-a4">Louis XIV a déménagé toute la cour de Paris à Versailles en 1682 — non par goût du luxe, mais par peur. En 1648, quand il était enfant, la Fronde avait failli le renverser. Il voulait éloigner les nobles de Paris, les garder à Versailles sous son œil, loin de toute tentation de complot. La magnificence était un instrument politique.</div></div>
+          <div onclick="toggleAnecdote('vs-a5')"><button class="anecdote-btn">🔍 Marie-Antoinette avait son propre village...</button><div class="anecdote-text" id="vs-a5">Dans le parc de Versailles, Marie-Antoinette avait fait construire un vrai petit hameau — avec de vraies fermes, de vrais animaux, et de vrais paysans. Elle jouait à la bergère, loin de l'étiquette rigide de la cour. Ce "hameau de la Reine" est encore visible aujourd'hui dans les jardins.</div></div>
+          <div onclick="toggleAnecdote('vs-a6')"><button class="anecdote-btn">🔍 Les jardins cachent des fontaines à réservoirs...</button><div class="anecdote-text" id="vs-a6">Les 300 fontaines de Versailles avaient un secret : à l'époque, il n'y avait pas assez d'eau pour toutes les faire fonctionner ensemble. Des signaux étaient transmis aux fontainiers à l'avance pour qu'ils ouvrent les vannes juste là où le roi se promenait. Louis XIV marchait dans un Paris aquatique qui se construisait devant lui.</div></div>
+          <div onclick="toggleAnecdote('vs-a7')"><button class="anecdote-btn">🔍 Le Traité de Versailles a changé le monde...</button><div class="anecdote-text" id="vs-a7">Le 28 juin 1919, dans la Galerie des Glaces, les vainqueurs de la Première Guerre mondiale ont fait signer l'Allemagne humiliée dans la même salle où, en 1871, le Kaiser avait proclamé l'Empire allemand après la défaite française. Un choix de lieu délibérement symbolique — et qui engendra une rancœur durable.</div></div>
+          <div onclick="toggleAnecdote('vs-a8')"><button class="anecdote-btn">🔍 Versailles a abrité des réfugiés pendant la Révolution...</button><div class="anecdote-text" id="vs-a8">En octobre 1789, des milliers de Parisiennes (principalement des femmes) ont marché jusqu'à Versailles et y ont forcé la famille royale à revenir à Paris. Le château a été abandonné. Pendant des décennies, il fut utilisé pour entreposer du matériel, puis comme hôpital. C'est Louis-Philippe qui l'a transformé en musée en 1837.</div></div>
+          <div onclick="toggleAnecdote('vs-a9')"><button class="anecdote-btn">🔍 Le Grand Canal fut un fjord artificiel...</button><div class="anecdote-text" id="vs-a9">Le Grand Canal de Versailles mesure 1,6 km de long. Louis XIV y faisait naviguer de vrais bateaux, dont une réplique miniature de sa flotte de guerre — avec de vrais canonniers pour les salves d'honneur. Les Vénitiens lui avaient envoyé des gondoliers pour animer le canal. Une folie royale à ciel ouvert.</div></div>
+          <div onclick="toggleAnecdote('vs-a10')"><button class="anecdote-btn">🔍 Les jardins sont classés au millimètre...</button><div class="anecdote-text" id="vs-a10">Le jardinier André Le Nôtre a dessiné les jardins de Versailles selon des règles géométriques parfaites. La grande perspective centrale est alignée exactement avec le soleil couchant lors du solstice d'été — un alignement astronomique voulu. Louis XIV, le "Roi Soleil", voulait que son château soit en dialogue avec l'astre lui-même.</div></div>
+        </div>
+        <div class="detail-content" id="tab-versailles-personnages">
+          <div class="personnage-card">
+            <img class="personnage-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Louis_XIV_of_France.jpg/800px-Louis_XIV_of_France.jpg" alt="Louis XIV" onerror="this.style.display='none'">
+            <div class="personnage-info">
+              <h4>Louis XIV — Le Roi Soleil</h4>
+              <div class="personnage-dates">1638 – 1715 · Roi de France 72 ans</div>
+              <div class="personnage-bio">Il a régné 72 ans — le règne le plus long de l'histoire de France. C'est lui qui a transformé le modeste pavillon de chasse de son père en ce palais colossal. Il disait "L'État, c'est moi." Sous son règne, la France est devenue la première puissance d'Europe. Il se levait à 8h30 précises, devant une cour entière. Chaque geste était un spectacle.</div>
+              <a class="personnage-lien" href="https://fr.wikipedia.org/wiki/Louis_XIV" target="_blank">📖 Wikipedia</a>
+            </div>
+          </div>
+          <div class="personnage-card">
+            <img class="personnage-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Marie_Antoinette_Adult.jpg/800px-Marie_Antoinette_Adult.jpg" alt="Marie-Antoinette" onerror="this.style.display='none'">
+            <div class="personnage-info">
+              <h4>Marie-Antoinette</h4>
+              <div class="personnage-dates">1755 – 1793 · Reine de France</div>
+              <div class="personnage-bio">Archiduchesse d'Autriche, elle arrive à Versailles à 14 ans pour épouser le futur Louis XVI. Elle souffre de l'étiquette rigide de la cour et se réfugie dans son Petit Trianon. Souvent vilipendée comme dépensière (à tort en partie), elle finit guillotinée à 37 ans. Sa cellule à la Conciergerie était minuscule. Le destin d'une reine que vous avez déjà visitée ce mardi.</div>
+              <a class="personnage-lien" href="https://fr.wikipedia.org/wiki/Marie-Antoinette" target="_blank">📖 Wikipedia</a>
+            </div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-versailles-videos">
+          <div class="videos-grid">
+            <a class="video-thumb" href="https://www.youtube.com/results?search_query=versailles+galerie+glaces+visite+histoire" target="_blank"><img src="https://img.youtube.com/vi/default/mqdefault.jpg" alt="Versailles"><div class="video-title">▶️ La Galerie des Glaces</div></a>
+            <a class="video-thumb" href="https://www.youtube.com/results?search_query=versailles+jardins+fontaines+louis+XIV" target="_blank"><img src="https://img.youtube.com/vi/default/mqdefault.jpg" alt="Jardins"><div class="video-title">▶️ Les jardins & fontaines</div></a>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-versailles-quiz">
+          <div class="quiz-question">
+            <p>❓ Combien de miroirs dans la Galerie des Glaces ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">100</button>
+            <button class="quiz-option" onclick="repondre(this,true)">357</button>
+            <button class="quiz-option" onclick="repondre(this,false)">1000</button>
+            <div class="quiz-feedback">✨ Bravo ! 357 miroirs face à 357 fenêtres !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ Quel grand traité historique fut signé dans la Galerie des Glaces ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">Le Traité de Napoléon</button>
+            <button class="quiz-option" onclick="repondre(this,true)">Le Traité de Versailles (1919)</button>
+            <button class="quiz-option" onclick="repondre(this,false)">La Déclaration des droits de l'homme</button>
+            <div class="quiz-feedback">🕊️ Exact ! La fin de la 1ère Guerre Mondiale en 1919 !</div>
+          </div>
+          <div class="quiz-question">
+            <p>❓ Pourquoi Louis XIV a-t-il déménagé à Versailles ?</p>
+            <button class="quiz-option" onclick="repondre(this,false)">Il aimait la nature</button>
+            <button class="quiz-option" onclick="repondre(this,false)">Paris était trop petite</button>
+            <button class="quiz-option" onclick="repondre(this,true)">Pour contrôler les nobles, loin de Paris</button>
+            <div class="quiz-feedback">👑 Très bien ! La magnificence était un instrument politique !</div>
+          </div>
+        </div>
+        <div class="detail-content" id="tab-versailles-trouver">
+          <ul class="trouver-list">
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La Galerie des Glaces — 73 mètres de miroirs</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">La chambre du Roi (lit d'apparat)</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Le Grand Canal vu depuis les jardins</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Une fontaine en marche dans les jardins</div></li>
+            <li class="trouver-item"><div class="trouver-check" onclick="toggleTrouver(this)">✓</div><div class="trouver-text">Le Hameau de la Reine (si le temps le permet)</div></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- fin versailles -->
+
+  </div><!-- fin jour-vendredi body -->
+</div><!-- fin jour-vendredi card -->
+
+</div><!-- fin section-jours -->
+
+<!-- ===== SECTION : PAR MONUMENT ===== -->
+<div id="section-monuments" class="section monuments-list">
+  <div class="section-title">🏛️ Tous les monuments</div>
+  <div class="section-subtitle">Retrouvez tous les sites par ordre de visite</div>
+  <div style="font-size:.82rem;background:var(--bleu-clair);color:var(--bleu);padding:11px;border-radius:var(--radius-sm);margin-bottom:13px;font-weight:600">💡 Cliquez sur un monument pour accéder directement à sa fiche !</div>
+
+  <!-- Liste liens vers chaque monument -->
+  <div class="monument-card"><div class="monument-header" onclick="goToMonument('lundi','eiffel')"><div class="monument-emoji">🗼</div><div class="monument-info"><h3>Tour Eiffel</h3><p>📅 Lundi · Jour 1</p><div class="monument-badges"><span class="badge badge-temps">2h</span><span class="badge badge-resa">Réservation obligatoire</span></div></div><span style="color:var(--texte-doux)">▶</span></div></div>
+
+  <div class="monument-card"><div class="monument-header" onclick="goToMonument('lundi','invalides')"><div class="monument-emoji">🏛️</div><div class="monument-info"><h3>Les Invalides — Napoléon</h3><p>📅 Lundi · Jour 1</p><div class="monument-badges"><span class="badge badge-temps">1h30</span><span class="badge badge-lion">🦁 Lien Loire</span></div></div><span style="color:var(--texte-doux)">▶</span></div></div>
+
+  <div class="monument-card"><div class="monument-header" onclick="goToMonument('lundi','arc')"><div class="monument-emoji">🏟️</div><div class="monument-info"><h3>Arc de Triomphe & Flamme</h3><p>📅 Lundi · Jour 1</p><div class="monument-badges"><span class="badge badge-temps">1h</span><span class="badge badge-gratuit">Gratuit -18 ans</span></div></div><span style="color:var(--texte-doux)">▶</span></div></div>
+
+  <div class="monument-card"><div class="monument-header" onclick="goToMonument('mardi','notredame')"><div class="monument-emoji">⛪</div><div class="monument-info"><h3>Notre-Dame de Paris</h3><p>📅 Mardi · Jour 2</p><div class="monument-badges"><span class="badge badge-gratuit">Gratuit</span></div></div><span style="color:var(--texte-doux)">▶</span></div></div>
+
+  <div class="monument-card"><div class="monument-header" onclick="goToMonument('mardi','chapelle')"><div class="monument-emoji">✨</div><div class="monument-info"><h3>Sainte-Chapelle</h3><p>📅 Mardi · Jour 2</p><div class="monument-badges"><span class="badge badge-gratuit">Gratuit -18 ans</span></div></div><span style="color:var(--texte-doux)">▶</span></div></div>
+
+  <div class="monument-card"><div class="monument-header" onclick="goToMonument('mardi','conciergerie')"><div class="monument-emoji">🏰</div><div class="monument-info"><h3>La Conciergerie</h3><p>📅 Mardi · Jour 2</p><div class="monument-badges"><span class="badge badge-gratuit">Gratuit -18 ans</span></div></div><span style="color:var(--texte-doux)">▶</span></div></div>
+
+  <div class="monument-card"><div class="monument-header" onclick="goToMonument('mercredi','louvre')"><div class="monument-emoji">🖼️</div><div class="monument-info"><h3>Musée du Louvre</h3><p>📅 Mercredi · Jour 3</p><div class="monument-badges"><span class="badge badge-temps">3h</span><span class="badge badge-lion">🦁 Lien Loire</span></div></div><span style="color:var(--texte-doux)">▶</span></div></div>
+
+  <div class="monument-card"><div class="monument-header" onclick="goToMonument('mercredi','carnavalet')"><div class="monument-emoji">🏺</div><div class="monument-info"><h3>Musée Carnavalet</h3><p>📅 Mercredi · Jour 3</p><div class="monument-badges"><span class="badge badge-gratuit">Gratuit !</span></div></div><span style="color:var(--texte-doux)">▶</span></div></div>
+
+  <div class="monument-card"><div class="monument-header" onclick="goToMonument('jeudi','sciences')"><div class="monument-emoji">🔭</div><div class="monument-info"><h3>Cité des Sciences & La Villette</h3><p>📅 Jeudi · Jour 4</p><div class="monument-badges"><span class="badge badge-temps">Journée</span></div></div><span style="color:var(--texte-doux)">▶</span></div></div>
+
+  <div class="monument-card"><div class="monument-header" onclick="goToMonument('vendredi','versailles')"><div class="monument-emoji">👑</div><div class="monument-info"><h3>Château de Versailles</h3><p>📅 Vendredi · Jour 5</p><div class="monument-badges"><span class="badge badge-temps">Journée</span><span class="badge badge-gratuit">Gratuit -18 ans</span></div></div><span style="color:var(--texte-doux)">▶</span></div></div>
+</div>
+
+<!-- ===== SECTION : PÉPITES ===== -->
+<div id="section-pepites" class="section">
+  <div class="section-title">💎 Les Pépites Cachées</div>
+  <div class="section-subtitle">Des merveilles que seuls les vrais Parisiens connaissent !</div>
+  <div class="filtres">
+    <button class="filtre-btn active" onclick="filtrerPepites('tous',this)">🗺️ Toutes</button>
+    <button class="filtre-btn" onclick="filtrerPepites('cite',this)">⛪ Île de la Cité</button>
+    <button class="filtre-btn" onclick="filtrerPepites('louvre',this)">🖼️ Louvre</button>
+    <button class="filtre-btn" onclick="filtrerPepites('rivegauche',this)">🗼 Rive Gauche</button>
+    <button class="filtre-btn" onclick="filtrerPepites('marais',this)">🏰 Marais</button>
+    <button class="filtre-btn" onclick="filtrerPepites('villette',this)">🚀 Villette</button>
+  </div>
+
+  <div class="pepite-card" data-quartier="cite">
+    <div class="pepite-color-bar" style="background:var(--violet)"></div>
+    <div style="flex:1;min-width:0">
+      <img class="pepite-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Paris_75001_Place_Louis-L%C3%A9pine_March%C3%A9_aux_fleurs_01.jpg/1280px-Paris_75001_Place_Louis-L%C3%A9pine_March%C3%A9_aux_fleurs_01.jpg" alt="Marché aux fleurs" onerror="this.style.display='none'">
+      <div class="pepite-content">
+        <div class="pepite-header"><h3>🌸 Le Marché aux Fleurs & Oiseaux</h3><span class="pepite-quartier">Île de la Cité</span></div>
+        <p class="pepite-desc">Le marché aux fleurs existe depuis 1808 — Napoléon venait de s'emparer de l'Europe. Chaque dimanche, il se transforme en marché aux oiseaux. Sur le parvis du marché, une petite plaque rappelle que c'est ici, sur l'île où Paris est née, que Lutèce gallo-romaine battait son cœur.</p>
+        <div class="pepite-actions"><a class="pepite-btn pepite-btn-maps" href="https://maps.google.com/?q=Marché+aux+fleurs+Paris+Ile+de+la+Cité" target="_blank">🗺️ Y aller</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pepite-card" data-quartier="louvre">
+    <div class="pepite-color-bar" style="background:var(--vert)"></div>
+    <div style="flex:1;min-width:0">
+      <div class="pepite-content">
+        <div class="pepite-header"><h3>🏛️ Les douves médiévales du Louvre</h3><span class="pepite-quartier">Louvre</span></div>
+        <p class="pepite-desc">Dans les sous-sols du Louvre, les douves et les tours de la forteresse médiévale de Philippe Auguste (1190) sont visibles gratuitement avec votre billet musée. C'est l'un des plus beaux monuments médiévaux de Paris — et 90% des visiteurs ne le savent pas et passent à côté !</p>
+        <div class="pepite-actions"><a class="pepite-btn pepite-btn-maps" href="https://maps.google.com/?q=Louvre+Medieval+sous-sols+Paris" target="_blank">🗺️ Dans le Louvre</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pepite-card" data-quartier="louvre">
+    <div class="pepite-color-bar" style="background:var(--bleu)"></div>
+    <div style="flex:1;min-width:0">
+      <div class="pepite-content">
+        <div class="pepite-header"><h3>🌳 Le Jardin du Palais Royal</h3><span class="pepite-quartier">Louvre</span></div>
+        <p class="pepite-desc">Jardin secret à deux pas du Louvre. Le 12 juillet 1789, Camille Desmoulins y monte sur une chaise et crie "Aux armes, citoyens !" en brandissant une feuille d'arbre comme cocarde verte. Deux jours plus tard, c'est la prise de la Bastille. Une feuille d'arbre a changé l'histoire du monde.</p>
+        <div class="pepite-actions"><a class="pepite-btn pepite-btn-maps" href="https://maps.google.com/?q=Jardin+du+Palais+Royal+Paris" target="_blank">🗺️ Y aller</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pepite-card" data-quartier="louvre">
+    <div class="pepite-color-bar" style="background:var(--orange)"></div>
+    <div style="flex:1;min-width:0">
+      <div class="pepite-content">
+        <div class="pepite-header"><h3>⛲ La Fontaine des Innocents</h3><span class="pepite-quartier">Louvre</span></div>
+        <p class="pepite-desc">Cette fontaine Renaissance de 1550 est la plus ancienne de Paris. Ce qu'on ne dit jamais : la place s'appelait le "Cimetière des Innocents" — pendant dix siècles, on y a enterré 2 millions de Parisiens. Quand la terre a débordé au point de contaminer les caves du quartier, on a transféré les ossements dans les Catacombes. La fontaine est le seul vestige visible.</p>
+        <div class="pepite-actions"><a class="pepite-btn pepite-btn-maps" href="https://maps.google.com/?q=Fontaine+des+Innocents+Paris" target="_blank">🗺️ Y aller</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pepite-card" data-quartier="rivegauche">
+    <div class="pepite-color-bar" style="background:var(--rouge)"></div>
+    <div style="flex:1;min-width:0">
+      <div class="pepite-content">
+        <div class="pepite-header"><h3>🗽 La Statue de la Liberté — Île aux Cygnes</h3><span class="pepite-quartier">Rive Gauche</span></div>
+        <p class="pepite-desc">Paris possède sa propre réplique de la Statue de la Liberté — sur l'Île aux Cygnes, au milieu de la Seine ! Elle est 4 fois plus petite que l'originale et fait face à New York, comme si elle regardait sa grande sœur. Offerte par la communauté américaine de Paris en 1889, elle est visible depuis le pont de Grenelle, à 15 min à pied de votre hôtel !</p>
+        <div class="pepite-actions"><a class="pepite-btn pepite-btn-maps" href="https://maps.google.com/?q=Statue+Liberté+Île+aux+Cygnes+Paris" target="_blank">🗺️ Y aller</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pepite-card" data-quartier="marais">
+    <div class="pepite-color-bar" style="background:var(--rose)"></div>
+    <div style="flex:1;min-width:0">
+      <div class="pepite-content">
+        <div class="pepite-header"><h3>🟥 Le Pavé de la Bastille</h3><span class="pepite-quartier">Marais</span></div>
+        <p class="pepite-desc">Place de la Bastille, sous vos pieds, une ligne de pavés légèrement différents trace le contour exact de l'ancienne forteresse — démolie en 1789. Une toute petite tour reste visible dans le métro ligne 5, station Bastille — derrière une vitre ! Des pierres de la Bastille ont été vendues comme souvenirs révolutionnaires dans toute l'Europe.</p>
+        <div class="pepite-actions"><a class="pepite-btn pepite-btn-maps" href="https://maps.google.com/?q=Place+de+la+Bastille+Paris" target="_blank">🗺️ Y aller</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pepite-card" data-quartier="villette">
+    <div class="pepite-color-bar" style="background:var(--bleu)"></div>
+    <div style="flex:1;min-width:0">
+      <div class="pepite-content">
+        <div class="pepite-header"><h3>🐉 Le Dragon Géant du Parc de la Villette</h3><span class="pepite-quartier">La Villette</span></div>
+        <p class="pepite-desc">Dans le Parc de la Villette, un dragon géant en toboggan de 50 mètres enchante les enfants depuis 1987. Plusieurs toboggans sont intégrés dans son corps. Des générations de parents parisiens se souviennent d'y avoir emmené leurs enfants. C'est devenu l'une des aires de jeux les plus mythiques de Paris.</p>
+        <div class="pepite-actions"><a class="pepite-btn pepite-btn-maps" href="https://maps.google.com/?q=Dragon+toboggan+Parc+Villette+Paris" target="_blank">🗺️ Y aller</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION : PARCS ===== -->
+<div id="section-parcs" class="section">
+  <div class="section-title">🌳 Parcs & Jardins</div>
+  <div class="section-subtitle">Des pauses vertes pour souffler entre les monuments !</div>
+
+  <div class="parc-card">
+    <div class="parc-header" onclick="toggleParc('champ')">
+      <div class="parc-emoji">🗼</div>
+      <div class="parc-info"><h3>Champ-de-Mars</h3><p>Lundi · 7e arr. · 15 min à pied depuis votre hôtel !</p></div>
+      <span class="chevron" id="chevron-parc-champ">▼</span>
+    </div>
+    <div class="parc-body" id="body-parc-champ">
+      <div class="parc-jour">📅 Votre jour de visite : Lundi — juste après la Tour Eiffel ou les Invalides</div>
+      <div class="parc-activites"><span class="parc-act-badge">🎠 Manège</span><span class="parc-act-badge">🧺 Pique-nique</span><span class="parc-act-badge">⚽ Pelouses</span><span class="parc-act-badge">🗼 Vue Tour Eiffel</span><span class="parc-act-badge">🎪 Guignol</span></div>
+      <div class="parc-anecdote">🏛️ <strong>Anecdote :</strong> Le Champ-de-Mars doit son nom aux champs d'entraînement militaires romains (Campus Martius). C'est ici que Louis XVI tenta de s'enfuir en 1791, et que fut organisée la Fête de la Fédération en 1790 — la vraie fête nationale révolutionnaire. Napoléon y fit parader ses armées. La pelouse paisible a vu les grandes heures de l'Histoire.</div>
+      <a class="parc-map-btn" href="https://maps.google.com/?q=Champ+de+Mars+Paris" target="_blank">🗺️ Y aller</a>
+    </div>
+  </div>
+
+  <div class="parc-card">
+    <div class="parc-header" onclick="toggleParc('tuileries')">
+      <div class="parc-emoji">🌺</div>
+      <div class="parc-info"><h3>Jardin des Tuileries</h3><p>Mercredi · 1er arr. · À côté du Louvre</p></div>
+      <span class="chevron" id="chevron-parc-tuileries">▼</span>
+    </div>
+    <div class="parc-body" id="body-parc-tuileries">
+      <div class="parc-jour">📅 Votre jour de visite : Mercredi — déjeuner entre Louvre et Fontaine des Innocents</div>
+      <div class="parc-activites"><span class="parc-act-badge">⛵ Bateaux miniatures</span><span class="parc-act-badge">🎠 Manège</span><span class="parc-act-badge">🧺 Pique-nique</span><span class="parc-act-badge">🍦 Glaciers</span><span class="parc-act-badge">🏛️ Sculptures</span></div>
+      <div class="parc-anecdote">🏛️ <strong>Anecdote :</strong> Le jardin des Tuileries doit son nom aux tuiles (tuileries) qui y étaient fabriquées au Moyen Âge. C'est Catherine de Médicis qui a fait créer le jardin au XVIe siècle. Pendant la Révolution, la foule en colère a traversé ces jardins pour envahir le Palais des Tuileries — le palais royal qui se dressait là jusqu'en 1871. Il a été incendié par la Commune et n'existe plus. Le jardin, lui, est toujours là.</div>
+      <a class="parc-map-btn" href="https://maps.google.com/?q=Jardin+des+Tuileries+Paris" target="_blank">🗺️ Y aller</a>
+    </div>
+  </div>
+
+  <div class="parc-card">
+    <div class="parc-header" onclick="toggleParc('luxembourg')">
+      <div class="parc-emoji">🦢</div>
+      <div class="parc-info"><h3>Jardin du Luxembourg</h3><p>2e arr. · Rive Gauche · Pause possible n'importe quel jour</p></div>
+      <span class="chevron" id="chevron-parc-luxembourg">▼</span>
+    </div>
+    <div class="parc-body" id="body-parc-luxembourg">
+      <div class="parc-jour">📅 Idéal si vous passez par la Rive Gauche — en bonus !</div>
+      <div class="parc-activites"><span class="parc-act-badge">⛵ Voiliers miniatures</span><span class="parc-act-badge">🎠 Manège ancien</span><span class="parc-act-badge">🎪 Guignol</span><span class="parc-act-badge">🧺 Pelouses</span><span class="parc-act-badge">🎾 Tennis</span></div>
+      <div class="parc-anecdote">🏛️ <strong>Anecdote :</strong> Le jardin du Luxembourg fut créé pour Marie de Médicis (mère de Louis XIII) en 1612 — elle voulait retrouver l'atmosphère des jardins florentins de son enfance. Les célèbres voiliers télécommandés sur le grand bassin sont une institution depuis le début du XXe siècle. Hemingway venait y attraper des pigeons pour les manger quand il était fauché à Paris dans les années 1920.</div>
+      <a class="parc-map-btn" href="https://maps.google.com/?q=Jardin+du+Luxembourg+Paris" target="_blank">🗺️ Y aller</a>
+    </div>
+  </div>
+
+  <div class="parc-card">
+    <div class="parc-header" onclick="toggleParc('villette')">
+      <div class="parc-emoji">🚀</div>
+      <div class="parc-info"><h3>Parc de La Villette</h3><p>Jeudi · 19e arr. · Avec la Cité des Sciences</p></div>
+      <span class="chevron" id="chevron-parc-villette">▼</span>
+    </div>
+    <div class="parc-body" id="body-parc-villette">
+      <div class="parc-jour">📅 Votre jour de visite : Jeudi — après la Cité des Sciences !</div>
+      <div class="parc-activites"><span class="parc-act-badge">🐉 Dragon toboggan</span><span class="parc-act-badge">⛺ Prairies</span><span class="parc-act-badge">🎪 Folies rouges</span><span class="parc-act-badge">🎶 Concerts</span><span class="parc-act-badge">🌊 Canal</span></div>
+      <div class="parc-anecdote">🏛️ <strong>Anecdote :</strong> Le Parc de la Villette a été dessiné par l'architecte Bernard Tschumi en 1982 — son concept était révolutionnaire : un parc qui n'imite pas la nature, mais joue avec les formes et les couleurs. Les 26 "folies" rouges (petits pavillons cubiques) dispersés dans le parc sont des œuvres d'art en soi. Et son dragon toboggan de 50 mètres est une institution pour des générations d'enfants parisiens depuis 1987 !</div>
+      <a class="parc-map-btn" href="https://maps.google.com/?q=Parc+de+la+Villette+Paris" target="_blank">🗺️ Y aller</a>
+    </div>
+  </div>
+
+  <div class="parc-card">
+    <div class="parc-header" onclick="toggleParc('versaillesjardins')">
+      <div class="parc-emoji">👑</div>
+      <div class="parc-info"><h3>Jardins de Versailles</h3><p>Vendredi · Versailles · Inclus dans le billet</p></div>
+      <span class="chevron" id="chevron-parc-versaillesjardins">▼</span>
+    </div>
+    <div class="parc-body" id="body-parc-versaillesjardins">
+      <div class="parc-jour">📅 Vendredi — après la visite du château, avant 14h30 !</div>
+      <div class="parc-activites"><span class="parc-act-badge">⛲ Fontaines</span><span class="parc-act-badge">🚤 Grand Canal</span><span class="parc-act-badge">🌹 Roseraie</span><span class="parc-act-badge">🏡 Hameau de la Reine</span><span class="parc-act-badge">🧺 Pique-nique</span></div>
+      <div class="parc-anecdote">🏛️ <strong>Anecdote :</strong> Les jardins furent dessinés par André Le Nôtre selon des règles géométriques parfaites. La grande perspective est alignée exactement avec le soleil couchant au solstice d'été. Les fontaines ne fonctionnaient pas toutes en même temps — des signaux étaient transmis aux fontainiers qui ouvraient les vannes là où passait le roi. Louis XIV marchait dans un Paris aquatique qui se construisait devant lui !</div>
+      <a class="parc-map-btn" href="https://maps.google.com/?q=Jardins+Versailles" target="_blank">🗺️ Dans les jardins</a>
+    </div>
+  </div>
+
+  <div class="parc-card">
+    <div class="parc-header" onclick="toggleParc('boulogne')">
+      <div class="parc-emoji">🌲</div>
+      <div class="parc-info"><h3>Bois de Boulogne</h3><p>Proche · 20 min à pied depuis votre hôtel !</p></div>
+      <span class="chevron" id="chevron-parc-boulogne">▼</span>
+    </div>
+    <div class="parc-body" id="body-parc-boulogne">
+      <div class="parc-jour">📅 À n'importe quel moment — surtout si les filles ont besoin de courir !</div>
+      <div class="parc-activites"><span class="parc-act-badge">🚴 Vélo</span><span class="parc-act-badge">🎠 Jardin d'Acclimatation</span><span class="parc-act-badge">🌹 Roseraie Bagatelle</span><span class="parc-act-badge">🐟 Étangs</span><span class="parc-act-badge">🐴 Hippodrome</span></div>
+      <div class="parc-anecdote">🏛️ <strong>Anecdote :</strong> Le Bois de Boulogne était une forêt royale réservée à la chasse du roi. Napoléon III en a fait un parc public en 1852, inspiré par les parcs londoniens. Le Jardin d'Acclimatation, à l'intérieur, est l'un des plus anciens parcs de loisirs de France — ouvert en 1860 ! La Roseraie de Bagatelle, en juin, présente des milliers de rosiers en fleurs.</div>
+      <a class="parc-map-btn" href="https://maps.google.com/?q=Bois+de+Boulogne+Paris" target="_blank">🗺️ Y aller</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION : LOIRE 🦁 ===== -->
+<div id="section-loire" class="section">
+  <div class="loire-banner">
+    <span class="lion-big">🦁</span>
+    <h2>Paris & la Loire</h2>
+    <p>Les liens secrets entre Paris et Roanne, Saint-Étienne et le département de la Loire — à travers l'Histoire !</p>
+  </div>
+  <div class="section-subtitle">Cherchez le 🦁 sur les monuments et les personnages pour retrouver ces connexions en visite !</div>
+
+  <div class="loire-card">
+    <div class="loire-card-header"><div class="loire-card-emoji">⚔️</div><div class="loire-card-info"><h3>Saint-Étienne armait Napoléon</h3><p>Manufacture d'armes · XVIIIe–XIXe siècle</p></div></div>
+    <div class="loire-card-body">La Manufacture Impériale d'armes de Saint-Étienne, fondée en 1764, a fourni l'essentiel des fusils de l'armée napoléonienne. Aux Invalides, cherchez les fusils marqués "Mre Impale de St Étienne" — fabriqués dans votre Loire ! Le 14 juillet 1789, les 28 000 fusils pillés aux Invalides avant la prise de la Bastille venaient en partie de Saint-Étienne. La Loire a armé la Révolution ET l'Empire.</div>
+  </div>
+
+  <div class="loire-card">
+    <div class="loire-card-header"><div class="loire-card-emoji">🚂</div><div class="loire-card-info"><h3>La première ligne de chemin de fer française</h3><p>Saint-Étienne · 1827</p></div></div>
+    <div class="loire-card-body">La première ligne de chemin de fer de France reliait Saint-Étienne à Andrézieux en 1827 — avant Paris ! Cette avance industrielle de la Loire a façonné l'économie nationale. Le charbon et l'acier du bassin stéphanois ont alimenté la construction de Paris tout au long du XIXe siècle, des grands boulevards d'Haussmann aux gares monumentales. Sans la Loire, le Paris haussmannien n'aurait pas existé tel qu'on le voit.</div>
+  </div>
+
+  <div class="loire-card">
+    <div class="loire-card-header"><div class="loire-card-emoji">👑</div><div class="loire-card-info"><h3>François Ier — le roi de la Loire au Louvre</h3><p>Châteaux de la Loire · XVIe siècle</p></div></div>
+    <div class="loire-card-body">François Ier, qui vivait principalement à Chambord, Amboise et Blois sur la Loire, a transformé la forteresse médiévale du Louvre en palais Renaissance en 1546. C'est lui qui a invité Léonard de Vinci à finir ses jours à Amboise — et qui a ainsi acquis la Joconde. Le plus grand musée du monde est l'œuvre d'un roi ligérien amoureux de l'art.</div>
+  </div>
+
+  <div class="loire-card">
+    <div class="loire-card-header"><div class="loire-card-emoji">🦁</div><div class="loire-card-info"><h3>Le lion de Roanne et l'héraldique parisienne</h3><p>Roanne · Moyen Âge</p></div></div>
+    <div class="loire-card-body">Les armoiries de Roanne portent un lion depuis le Moyen Âge — symbole de force et de noblesse. Ce lion se retrouve dans de nombreux blasons de la région Loire, dont les villes qui ont fourni Paris en hommes, en acier et en charbon pendant des siècles. Cherchez les lions sur les façades de Paris — sur les ponts, les fontaines, les bâtiments officiels — et pensez à votre Loire !</div>
+  </div>
+
+  <div class="loire-card">
+    <div class="loire-card-header"><div class="loire-card-emoji">👨‍⚖️</div><div class="loire-card-info"><h3>Antoine Pinay — homme d'État ligérien</h3><p>Loire · 1891–1994</p></div></div>
+    <div class="loire-card-body">Antoine Pinay, profondément lié à la Loire, a été Président du Conseil (1952) et l'un des hommes politiques les plus populaires de la IVe République. Son "emprunt Pinay" de 1952 a sauvé les finances françaises. Il a vécu 102 ans et resta toujours fidèle à ses racines ligériennes. Un enfant de la Loire au cœur du pouvoir parisien.</div>
+  </div>
+
+  <div class="loire-card">
+    <div class="loire-card-header"><div class="loire-card-emoji">🔨</div><div class="loire-card-info"><h3>Les Compagnons du Devoir de la Loire à Paris</h3><p>Tradition · XIXe–XXe siècle</p></div></div>
+    <div class="loire-card-body">La tradition des Compagnons du Devoir est très forte dans la Loire. Ces artisans d'élite — charpentiers, menuisiers, maçons — ont fait leur "tour de France" et participé à la construction et la restauration de nombreux monuments parisiens. En 2024, lors de la restauration de Notre-Dame, des Compagnons du Devoir formés dans la Loire ont posé leur savoir-faire au service de la cathédrale. La Loire bâtit Paris, siècle après siècle.</div>
+  </div>
+</div>
+
+<!-- MODAL PERSONNAGE -->
+<div class="modal-overlay" id="modal-personnage" onclick="fermerModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="fermerModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+// ===== NAVIGATION =====
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-main button').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  const idx = ['jours','monuments','pepites','parcs','loire'].indexOf(id);
+  if (idx >= 0) document.querySelectorAll('.nav-main button')[idx].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ===== JOURS =====
+function toggleJour(id) {
+  const el = document.getElementById('jour-' + id);
+  el.style.display = el.style.display === 'none' || el.style.display === '' ? 'block' : 'none';
+}
+
+// ===== MONUMENTS =====
+function toggleMonument(id) {
+  const detail = document.getElementById('detail-' + id);
+  const chevron = document.getElementById('chevron-' + id);
+  const isOpen = detail.classList.contains('open');
+  detail.classList.toggle('open', !isOpen);
+  if (chevron) chevron.classList.toggle('open', !isOpen);
+}
+
+function goToMonument(jour, monument) {
+  showSection('jours');
+  const jourEl = document.getElementById('jour-' + jour);
+  jourEl.style.display = 'block';
+  setTimeout(() => {
+    toggleMonument(monument);
+    const card = document.getElementById('card-' + monument);
+    if (card) card.scrollIntoView({ behavior: 'smooth' });
+  }, 100);
+}
+
+// ===== TABS =====
+function showTab(monument, tab, btn) {
+  const detail = document.getElementById('detail-' + monument);
+  detail.querySelectorAll('.detail-content').forEach(c => c.classList.remove('active'));
+  detail.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + monument + '-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ===== ANECDOTES =====
+function toggleAnecdote(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+// ===== CARNET =====
+let visites = 0;
+const totalMonuments = 10;
+
+function toggleCheck(e, id) {
+  e.stopPropagation();
+  const btn = document.getElementById('check-' + id);
+  const done = btn.classList.toggle('done');
+  visites += done ? 1 : -1;
+  if (visites < 0) visites = 0;
+  updateCarnet();
+}
+
+function updateCarnet() {
+  const pct = Math.round((visites / totalMonuments) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('nb-visites').textContent = visites;
+  const etoiles = Math.min(5, visites === 0 ? 0 : Math.ceil(visites / 2));
+  document.getElementById('etoiles-display').textContent = '⭐'.repeat(etoiles) + '☆'.repeat(5 - etoiles);
+}
+
+// ===== TROUVER =====
+function toggleTrouver(el) {
+  el.classList.toggle('done');
+}
+
+// ===== QUIZ =====
+function repondre(btn, correct) {
+  const parent = btn.closest('.quiz-question');
+  if (parent.dataset.answered) return;
+  parent.dataset.answered = 'true';
+  parent.querySelectorAll('.quiz-option').forEach(b => b.style.pointerEvents = 'none');
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) {
+    parent.querySelectorAll('.quiz-option').forEach(b => {
+      if (b.onclick && b !== btn) { /* find correct */ }
+    });
+  }
+  const fb = parent.querySelector('.quiz-feedback');
+  if (fb) { fb.style.display = 'block'; fb.style.color = correct ? 'var(--vert)' : 'var(--rouge)'; }
+}
+
+// ===== FILTRES PÉPITES =====
+function filtrerPepites(quartier, btn) {
+  document.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.pepite-card').forEach(card => {
+    card.style.display = (quartier === 'tous' || card.dataset.quartier === quartier) ? 'flex' : 'none';
+  });
+}
+
+// ===== PARCS =====
+function toggleParc(id) {
+  const body = document.getElementById('body-parc-' + id);
+  const chevron = document.getElementById('chevron-parc-' + id);
+  body.classList.toggle('open');
+  if (chevron) chevron.classList.toggle('open');
+}
+
+// ===== MODAL =====
+function fermerModal() {
+  document.getElementById('modal-personnage').classList.remove('open');
+}
+
+// Init
+updateCarnet();
+</script>
+</body>
+</html>
